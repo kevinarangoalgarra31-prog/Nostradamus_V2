@@ -126,3 +126,4 @@ websockets==17.1
 widgetsnbextension==4.0.16
 xgboost==3.4.1
 yfinance==1.7.0
+feedparser>=6.0.10
