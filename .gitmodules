@@ -1,0 +1,3 @@
+[submodule "modules/RSS"]
+	path = modules/RSS
+	url = https://github.com/MaxOnematador/RSS-.git

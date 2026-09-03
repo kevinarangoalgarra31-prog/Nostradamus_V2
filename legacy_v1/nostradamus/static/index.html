@@ -1,0 +1,1144 @@
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@400;600;800&display=swap');
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    :root {
+        --bg: #08090d;
+        --surface: #0e1117;
+        --surface2: #13161f;
+        --border: rgba(255, 255, 255, 0.07);
+        --border2: rgba(255, 255, 255, 0.13);
+        --text: #eeeef0;
+        --muted: rgba(255, 255, 255, 0.4);
+        --accent: #00e5a0;
+        --accent2: #00b87a;
+        --warn: #f59e0b;
+        --danger: #ef4444;
+        --blue: #3b82f6;
+        --mono: 'Space Mono', monospace;
+        --sans: 'Syne', sans-serif;
+    }
+
+    body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--sans);
+        min-height: 100vh;
+        overflow-x: hidden;
+        display: flex;
+        justify-content: center;
+    }
+
+    .app {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        width: 100%;
+        max-width: 1400px;
+        height: 100vh;
+        border-left: 1px solid var(--border);
+        border-right: 1px solid var(--border);
+        background: var(--bg);
+        box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Header */
+    .hdr {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 24px;
+        border-bottom: 1px solid var(--border);
+        background: var(--surface);
+    }
+
+    .logo-wrap {
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+    }
+
+    .logo-title {
+        font-size: 18px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        color: var(--accent);
+        font-family: var(--mono);
+    }
+
+    .logo-ver {
+        font-size: 11px;
+        color: var(--muted);
+        font-family: var(--mono);
+    }
+
+    .logo-sub {
+        font-size: 11px;
+        color: var(--muted);
+        letter-spacing: 0.06em;
+        margin-left: 14px;
+    }
+
+    .hdr-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .live-dot {
+        width: 8px;
+        height: 8px;
+        background: var(--accent);
+        border-radius: 50%;
+        animation: pulse-dot 2s infinite;
+    }
+
+    @keyframes pulse-dot {
+
+        0%,
+        100% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0.3;
+        }
+    }
+
+    .live-label {
+        font-size: 11px;
+        color: var(--muted);
+        font-family: var(--mono);
+        letter-spacing: 0.08em;
+    }
+
+    /* Tabs */
+    .tabs {
+        display: flex;
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+    }
+
+    .tab {
+        padding: 12px 20px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        color: var(--muted);
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+        transition: all 0.2s;
+        font-family: var(--mono);
+    }
+
+    .tab.active {
+        color: var(--accent);
+        border-bottom-color: var(--accent);
+    }
+
+    .tab:hover:not(.active) {
+        color: var(--text);
+    }
+
+    /* View panels */
+    .view {
+        display: none;
+        flex-direction: column;
+        flex: 1;
+        min-height: 0;
+    }
+
+    .view.active {
+        display: flex;
+    }
+
+    /* ============ CLIENT VIEW ============ */
+    .client-hero {
+        padding: 40px 24px 32px;
+        text-align: center;
+        background: linear-gradient(180deg, #0a0e17 0%, var(--bg) 100%);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .client-hero::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(0, 229, 160, 0.06) 0%, transparent 70%);
+    }
+
+    .hero-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 12px;
+        border: 1px solid rgba(0, 229, 160, 0.25);
+        border-radius: 20px;
+        font-size: 11px;
+        color: var(--accent);
+        font-family: var(--mono);
+        letter-spacing: 0.05em;
+        margin-bottom: 20px;
+    }
+
+    .hero-title {
+        font-size: 36px;
+        font-weight: 800;
+        line-height: 1.1;
+        margin-bottom: 10px;
+        letter-spacing: -0.02em;
+    }
+
+    .hero-title span {
+        color: var(--accent);
+    }
+
+    .hero-sub {
+        font-size: 14px;
+        color: var(--muted);
+        max-width: 420px;
+        margin: 0 auto 28px;
+        line-height: 1.6;
+    }
+
+    .run-btn {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 32px;
+        background: var(--accent);
+        color: #000;
+        border: none;
+        border-radius: 4px;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        cursor: pointer;
+        font-family: var(--mono);
+        transition: all 0.2s;
+        overflow: hidden;
+    }
+
+    .run-btn:hover {
+        background: #00ffb2;
+        transform: translateY(-1px);
+    }
+
+    .run-btn:active {
+        transform: translateY(0);
+    }
+
+    .run-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    .run-btn .btn-icon {
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 5px 0 5px 9px;
+        border-color: transparent transparent transparent #000;
+    }
+
+    /* Steps bar */
+    .steps-bar {
+        display: flex;
+        gap: 0;
+        background: var(--surface);
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+    }
+
+    .step-item {
+        flex: 1;
+        padding: 12px 14px;
+        border-right: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .step-item:last-child {
+        border-right: none;
+    }
+
+    .step-num {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        border: 1.5px solid var(--border2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        font-family: var(--mono);
+        font-weight: 700;
+        color: var(--muted);
+        flex-shrink: 0;
+        transition: all 0.4s;
+    }
+
+    .step-num.done {
+        border-color: var(--accent);
+        color: var(--accent);
+        background: rgba(0, 229, 160, 0.08);
+    }
+
+    .step-num.active {
+        border-color: var(--accent);
+        color: #000;
+        background: var(--accent);
+        animation: step-pulse 1s infinite;
+    }
+
+    @keyframes step-pulse {
+
+        0%,
+        100% {
+            box-shadow: 0 0 0 0 rgba(0, 229, 160, 0.4);
+        }
+
+        50% {
+            box-shadow: 0 0 0 6px rgba(0, 229, 160, 0);
+        }
+    }
+
+    .step-text {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .step-name {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--muted);
+        letter-spacing: 0.05em;
+        transition: color 0.3s;
+    }
+
+    .step-name.done,
+    .step-name.active {
+        color: var(--text);
+    }
+
+    .step-stat {
+        font-size: 10px;
+        color: var(--muted);
+        font-family: var(--mono);
+    }
+
+    /* Main grid */
+    .main-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+        border-bottom: 1px solid var(--border);
+        flex: 1;
+        min-height: 0;
+    }
+
+    .panel {
+        border-right: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+    }
+
+    .panel:last-child {
+        border-right: none;
+    }
+
+    .panel-hdr {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .panel-title {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        color: var(--muted);
+        font-family: var(--mono);
+    }
+
+    .panel-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--border2);
+    }
+
+    .panel-dot.active {
+        background: var(--accent);
+        animation: pulse-dot 1.5s infinite;
+    }
+
+    /* Terminal */
+    .terminal {
+        background: #06070a;
+        flex: 1;
+        min-height: 200px;
+        overflow-y: auto;
+        padding: 12px 14px;
+        font-family: var(--mono);
+        font-size: 11px;
+        line-height: 1.7;
+    }
+
+    .terminal::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .terminal::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .terminal::-webkit-scrollbar-thumb {
+        background: var(--border2);
+        border-radius: 2px;
+    }
+
+    .log-line {
+        opacity: 0;
+        animation: fade-in 0.3s forwards;
+    }
+
+    @keyframes fade-in {
+        to {
+            opacity: 1;
+        }
+    }
+
+    .log-ts {
+        color: #3a4a5c;
+        margin-right: 8px;
+    }
+
+    .log-ok {
+        color: var(--accent);
+    }
+
+    .log-info {
+        color: #7ca3d4;
+    }
+
+    .log-warn {
+        color: var(--warn);
+    }
+
+    .log-signal {
+        color: #a78bfa;
+    }
+
+    .log-done {
+        color: var(--accent);
+        font-weight: 700;
+    }
+
+    .log-neutral {
+        color: var(--muted);
+    }
+
+    .log-sep {
+        color: #1e2a38;
+    }
+
+    /* Result card */
+    .result-panel {
+        flex: 1;
+        min-height: 200px;
+        overflow-y: auto;
+        padding: 14px 16px;
+    }
+
+    .result-panel::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .result-panel::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .result-panel::-webkit-scrollbar-thumb {
+        background: var(--border2);
+        border-radius: 2px;
+    }
+
+    .placeholder {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        color: var(--muted);
+        font-size: 12px;
+        font-family: var(--mono);
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .placeholder-icon {
+        font-size: 24px;
+        opacity: 0.2;
+    }
+
+    /* Decision card */
+    .decision-card {
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 16px;
+        margin-bottom: 12px;
+        opacity: 0;
+        transform: translateY(8px);
+        transition: all 0.4s;
+    }
+
+    .decision-card.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .dc-label {
+        font-size: 10px;
+        color: var(--muted);
+        font-family: var(--mono);
+        letter-spacing: 0.1em;
+        margin-bottom: 6px;
+    }
+
+    .dc-signal {
+        font-size: 22px;
+        font-weight: 800;
+        color: var(--accent);
+        letter-spacing: 0.06em;
+    }
+
+    .dc-signal.sell {
+        color: var(--danger);
+    }
+
+    .dc-meta {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-top: 12px;
+    }
+
+    .dc-metric {
+        background: var(--surface);
+        border-radius: 4px;
+        padding: 8px 10px;
+    }
+
+    .dc-metric-label {
+        font-size: 9px;
+        color: var(--muted);
+        font-family: var(--mono);
+        letter-spacing: 0.08em;
+        margin-bottom: 3px;
+    }
+
+    .dc-metric-val {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--text);
+        font-family: var(--mono);
+    }
+
+    .dc-metric-val.green {
+        color: var(--accent);
+    }
+
+    .dc-metric-val.red {
+        color: var(--danger);
+    }
+
+    .dc-metric-val.yellow {
+        color: var(--warn);
+    }
+
+    /* Confidence bar */
+    .conf-bar-wrap {
+        margin-top: 10px;
+    }
+
+    .conf-bar-label {
+        display: flex;
+        justify-content: space-between;
+        font-size: 10px;
+        font-family: var(--mono);
+        color: var(--muted);
+        margin-bottom: 5px;
+    }
+
+    .conf-bar-track {
+        height: 4px;
+        background: var(--border);
+        border-radius: 2px;
+        overflow: hidden;
+    }
+
+    .conf-bar-fill {
+        height: 100%;
+        background: var(--accent);
+        border-radius: 2px;
+        width: 0;
+        transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Risk meters */
+    .risk-row {
+        display: flex;
+        gap: 8px;
+        margin-top: 8px;
+    }
+
+    .risk-pill {
+        flex: 1;
+        background: var(--surface);
+        border-radius: 4px;
+        padding: 8px;
+        text-align: center;
+    }
+
+    .rp-label {
+        font-size: 9px;
+        font-family: var(--mono);
+        color: var(--muted);
+        letter-spacing: 0.06em;
+    }
+
+    .rp-val {
+        font-size: 13px;
+        font-weight: 700;
+        font-family: var(--mono);
+        margin-top: 3px;
+    }
+
+    /* Bottom: market context */
+    .market-strip {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        border-top: 1px solid var(--border);
+    }
+
+    .mkt-cell {
+        padding: 14px 16px;
+        border-right: 1px solid var(--border);
+    }
+
+    .mkt-cell:last-child {
+        border-right: none;
+    }
+
+    .mkt-label {
+        font-size: 10px;
+        font-family: var(--mono);
+        color: var(--muted);
+        letter-spacing: 0.08em;
+        margin-bottom: 6px;
+    }
+
+    .mkt-val {
+        font-size: 15px;
+        font-weight: 700;
+        font-family: var(--mono);
+    }
+
+    .mkt-val.up {
+        color: var(--accent);
+    }
+
+    .mkt-val.down {
+        color: var(--danger);
+    }
+
+    .mkt-sub {
+        font-size: 10px;
+        font-family: var(--mono);
+        color: var(--muted);
+        margin-top: 2px;
+    }
+
+    /* ============ ADMIN VIEW ============ */
+    .admin-wrap {
+        padding: 0;
+    }
+
+    .admin-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        min-height: 400px;
+    }
+
+    .admin-col {
+        border-right: 1px solid var(--border);
+    }
+
+    .admin-col:last-child {
+        border-right: none;
+    }
+
+    .admin-panel-hdr {
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--border);
+        font-size: 11px;
+        font-family: var(--mono);
+        color: var(--muted);
+        letter-spacing: 0.1em;
+        font-weight: 700;
+    }
+
+    .full-terminal {
+        height: 380px;
+        overflow-y: auto;
+        background: #06070a;
+        padding: 12px 14px;
+        font-family: var(--mono);
+        font-size: 10.5px;
+        line-height: 1.75;
+    }
+
+    .full-terminal::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .full-terminal::-webkit-scrollbar-thumb {
+        background: var(--border2);
+        border-radius: 2px;
+    }
+
+    .json-panel {
+        height: 380px;
+        overflow: auto;
+        padding: 12px 14px;
+    }
+
+    .json-panel::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .json-panel::-webkit-scrollbar-thumb {
+        background: var(--border2);
+        border-radius: 2px;
+    }
+
+    pre.json-pre {
+        font-family: var(--mono);
+        font-size: 10px;
+        line-height: 1.7;
+        color: var(--muted);
+        white-space: pre-wrap;
+        word-break: break-all;
+    }
+
+    .json-key {
+        color: #7ca3d4;
+    }
+
+    .json-str {
+        color: var(--accent);
+    }
+
+    .json-num {
+        color: var(--warn);
+    }
+
+    .json-bool {
+        color: #a78bfa;
+    }
+
+    /* Pipeline metadata bar */
+    .meta-bar {
+        display: flex;
+        gap: 20px;
+        padding: 10px 16px;
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        background: var(--surface);
+    }
+
+    .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 10px;
+        font-family: var(--mono);
+        color: var(--muted);
+    }
+
+    .meta-item span:last-child {
+        color: var(--text);
+    }
+</style>
+
+<div class="app">
+    <div class="hdr">
+        <div class="logo-wrap">
+            <span class="logo-title">NOSTRADAMUS</span>
+            <span class="logo-ver">v1.1</span>
+            <span class="logo-sub">AI TRADING PIPELINE</span>
+        </div>
+        <div class="hdr-right">
+            <div class="live-dot" id="live-dot" style="background:var(--border2);animation:none;"></div>
+            <span class="live-label" id="live-label">IDLE</span>
+        </div>
+    </div>
+
+    <div class="tabs">
+        <div class="tab active" onclick="switchTab('client')">CLIENTE</div>
+        <div class="tab" onclick="switchTab('admin')">ADMINISTRADOR</div>
+    </div>
+
+    <!-- CLIENT VIEW -->
+    <div class="view active" id="view-client">
+        <div class="client-hero">
+            <div class="hero-tag"><span
+                    style="width:6px;height:6px;background:var(--accent);border-radius:50%;display:inline-block;"></span>ANÁLISIS
+                IMPULSADO POR IA</div>
+            <div class="hero-title">Predicción de mercado<br><span>en segundos</span></div>
+            <div class="hero-sub">El pipeline analiza noticias, calcula riesgo y genera señales de inversión de forma
+                automática.</div>
+            <button class="run-btn" id="run-btn" onclick="startSimulation()">
+                <div class="btn-icon"></div>
+                INICIAR ANÁLISIS
+            </button>
+        </div>
+
+        <div class="steps-bar">
+            <div class="step-item" id="si-1">
+                <div class="step-num" id="sn-1">1</div>
+                <div class="step-text"><span class="step-name" id="st-1">Stock Selector</span><span class="step-stat"
+                        id="ss-1">—</span></div>
+            </div>
+            <div class="step-item" id="si-2">
+                <div class="step-num" id="sn-2">2</div>
+                <div class="step-text"><span class="step-name" id="st-2">Tavily Search</span><span class="step-stat"
+                        id="ss-2">—</span></div>
+            </div>
+            <div class="step-item" id="si-3">
+                <div class="step-num" id="sn-3">3</div>
+                <div class="step-text"><span class="step-name" id="st-3">Groq Analysis</span><span class="step-stat"
+                        id="ss-3">—</span></div>
+            </div>
+            <div class="step-item" id="si-4">
+                <div class="step-num" id="sn-4">4</div>
+                <div class="step-text"><span class="step-name" id="st-4">Risk & Execution</span><span class="step-stat"
+                        id="ss-4">—</span></div>
+            </div>
+        </div>
+
+        <div class="main-grid">
+            <div class="panel">
+                <div class="panel-hdr">
+                    <span class="panel-title">TERMINAL EN VIVO</span>
+                    <div class="panel-dot" id="term-dot"></div>
+                </div>
+                <div class="terminal" id="terminal"></div>
+            </div>
+            <div class="panel">
+                <div class="panel-hdr">
+                    <span class="panel-title">RESULTADO DEL ANÁLISIS</span>
+                    <div class="panel-dot" id="res-dot"></div>
+                </div>
+                <div class="result-panel" id="result-panel">
+                    <div class="placeholder">
+                        <div class="placeholder-icon">◈</div>
+                        <span>Esperando análisis...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="market-strip" id="market-strip">
+            <div class="mkt-cell">
+                <div class="mkt-label">ACTIVO</div>
+                <div class="mkt-val" id="mk-asset">—</div>
+                <div class="mkt-sub" id="mk-type">—</div>
+            </div>
+            <div class="mkt-cell">
+                <div class="mkt-label">SEÑAL</div>
+                <div class="mkt-val" id="mk-signal">—</div>
+                <div class="mkt-sub" id="mk-sentiment">—</div>
+            </div>
+            <div class="mkt-cell">
+                <div class="mkt-label">POSICIÓN</div>
+                <div class="mkt-val" id="mk-position">—</div>
+                <div class="mkt-sub" id="mk-btc">—</div>
+            </div>
+            <div class="mkt-cell">
+                <div class="mkt-label">DURACIÓN</div>
+                <div class="mkt-val" id="mk-duration">—</div>
+                <div class="mkt-sub">pipeline</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMIN VIEW -->
+    <div class="view" id="view-admin">
+        <div class="meta-bar" id="admin-meta">
+            <div class="meta-item"><span>VERSIÓN</span><span>1.1.0</span></div>
+            <div class="meta-item"><span>MODELO</span><span>groq-llama-3.3-70b</span></div>
+            <div class="meta-item"><span>CAPITAL</span><span>$10,000 USD</span></div>
+            <div class="meta-item"><span>ESTADO</span><span id="admin-state">IDLE</span></div>
+            <div class="meta-item"><span>DURACIÓN</span><span id="admin-dur">—</span></div>
+        </div>
+        <div class="admin-grid">
+            <div class="admin-col">
+                <div class="admin-panel-hdr">LOG COMPLETO DEL SISTEMA</div>
+                <div class="full-terminal" id="admin-terminal">
+                    <span style="color:var(--muted);">Inicia una simulación desde la vista Cliente para ver los logs
+                        aquí.</span>
+                </div>
+            </div>
+            <div class="admin-col">
+                <div class="admin-panel-hdr">ESTADO FINAL (JSON)</div>
+                <div class="json-panel" id="admin-json">
+                    <div class="placeholder">
+                        <div class="placeholder-icon">{ }</div><span>JSON aparecerá aquí...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let simRunning = false;
+    let allLogs = [];
+    let ws = null;
+    let currentData = null;
+
+    function switchTab(t) {
+        document.querySelectorAll('.tab').forEach((el, i) => el.classList.toggle('active', (i === 0 && t === 'client') || (i === 1 && t === 'admin')));
+        document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
+        document.getElementById('view-' + t).classList.add('active');
+    }
+
+    function setStep(n, state) {
+        const num = document.getElementById('sn-' + n);
+        const name = document.getElementById('st-' + n);
+        num.className = 'step-num ' + state;
+        name.className = 'step-name ' + state;
+    }
+
+    function addLog(term, cls, txt, ts) {
+        const line = document.createElement('div');
+        line.className = 'log-line';
+        const time = ts || nowStr();
+        line.innerHTML = `<span class="log-ts">[${time}]</span> <span class="${cls}">${escapeHtml(txt)}</span>`;
+        term.appendChild(line);
+        term.scrollTop = term.scrollHeight;
+        return line;
+    }
+
+    function nowStr() {
+        const d = new Date();
+        return d.toTimeString().split(' ')[0];
+    }
+
+    function escapeHtml(unsafe) {
+        return unsafe.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    function showResult() {
+        const p = document.getElementById('result-panel');
+        if (!currentData || currentData.error) {
+            p.innerHTML = `<div class="placeholder"><div class="placeholder-icon">⚠</div><span>Error en el pipeline</span></div>`;
+            return;
+        }
+
+        const d = currentData;
+        const ejec = d.ejecucion || {};
+        const pred = d.prediccion || {};
+        const conf = pred.confidence_score || 0;
+
+        p.innerHTML = `
+    <div class="decision-card" id="dc1">
+      <div class="dc-label">DECISIÓN DEL SISTEMA</div>
+      <div class="dc-signal ${ejec.decision !== 'INVERTIR' ? 'sell' : ''}">${ejec.decision || 'N/A'}</div>
+      <div class="conf-bar-wrap">
+        <div class="conf-bar-label"><span>Confidence Score</span><span id="conf-pct">0%</span></div>
+        <div class="conf-bar-track"><div class="conf-bar-fill" id="conf-fill"></div></div>
+      </div>
+      <div class="dc-meta">
+        <div class="dc-metric"><div class="dc-metric-label">ACTIVO</div><div class="dc-metric-val">${d.activo || '-'} / ${d.nombre || '-'}</div></div>
+        <div class="dc-metric"><div class="dc-metric-label">SEÑAL IA</div><div class="dc-metric-val ${pred.senal === 'comprar' ? 'green' : (pred.senal === 'vender' ? 'red' : 'yellow')}">${(pred.senal || '').toUpperCase()}</div></div>
+        <div class="dc-metric"><div class="dc-metric-label">POSICIÓN USD</div><div class="dc-metric-val green">$${(ejec.tamano_posicion_usd || 0).toLocaleString()}</div></div>
+        <div class="dc-metric"><div class="dc-metric-label">KELLY ADJ.</div><div class="dc-metric-val">${((ejec.kelly_ajustado || 0) * 100).toFixed(2)}%</div></div>
+      </div>
+      <div class="risk-row">
+        <div class="risk-pill"><div class="rp-label">STOP LOSS</div><div class="rp-val" style="color:var(--danger)">-${ejec.stop_loss_pct || 0}%</div></div>
+        <div class="risk-pill"><div class="rp-label">TAKE PROFIT</div><div class="rp-val" style="color:var(--accent)">+${ejec.take_profit_pct || 0}%</div></div>
+      </div>
+    </div>
+  `;
+        setTimeout(() => {
+            const card = document.getElementById('dc1');
+            if (card) card.classList.add('show');
+            const fill = document.getElementById('conf-fill');
+            const pct = document.getElementById('conf-pct');
+            if (fill && pct) {
+                setTimeout(() => {
+                    const targetConf = conf * 100;
+                    fill.style.width = targetConf + '%';
+                    let v = 0;
+                    const iv = setInterval(() => {
+                        v = Math.min(targetConf, v + 2);
+                        pct.textContent = v.toFixed(0) + '%';
+                        if (v >= targetConf) clearInterval(iv);
+                    }, 20);
+                }, 200);
+            }
+        }, 50);
+    }
+
+    function updateMarket() {
+        if (!currentData) return;
+        const d = currentData;
+        const ejec = d.ejecucion || {};
+        const pred = d.prediccion || {};
+        const meta = d.pipeline_metadata || {};
+
+        document.getElementById('mk-asset').textContent = d.activo || '-';
+        document.getElementById('mk-type').textContent = d.tipo || 'stock';
+
+        const sig = document.getElementById('mk-signal');
+        sig.textContent = (ejec.decision || 'N/A');
+        sig.className = 'mkt-val ' + (ejec.decision === 'INVERTIR' ? 'up' : 'down');
+
+        document.getElementById('mk-sentiment').textContent = pred.senal || '-';
+
+        const pos = document.getElementById('mk-position');
+        pos.textContent = '$' + (ejec.tamano_posicion_usd || 0).toLocaleString();
+        pos.className = 'mkt-val ' + (ejec.tamano_posicion_usd > 0 ? 'up' : '');
+
+        document.getElementById('mk-btc').textContent = (ejec.tamano_posicion_activo || 0).toFixed(4) + ' ACTIVO';
+
+        document.getElementById('mk-duration').textContent = (meta.duracion_total_s || 0).toFixed(2) + 's';
+    }
+
+    function updateAdmin() {
+        if (!currentData) return;
+
+        document.getElementById('admin-state').textContent = 'COMPLETADO';
+        document.getElementById('admin-dur').textContent = (currentData.pipeline_metadata?.duracion_total_s || 0).toFixed(2) + 's';
+
+        const jPanel = document.getElementById('admin-json');
+        const raw = JSON.stringify(currentData, null, 2);
+        const highlighted = escapeHtml(raw)
+            .replace(/(&quot;(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\&quot;])*&quot;)\s*:/g, '<span class="json-key">$1</span>:')
+            .replace(/&quot;([^&quot;]*)&quot;(?!\s*:)/g, '<span class="json-str">&quot;$1&quot;</span>')
+            .replace(/\b(\d+\.?\d*)\b/g, '<span class="json-num">$1</span>')
+            .replace(/\b(true|false|null)\b/g, '<span class="json-bool">$1</span>');
+        jPanel.innerHTML = `<pre class="json-pre">${highlighted}</pre>`;
+    }
+
+    function connectWebSocket() {
+        const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+        ws = new WebSocket(`${protocol}//${window.location.host}/ws/pipeline`);
+
+        ws.onopen = () => {
+            addLog(document.getElementById('terminal'), 'log-info', 'Conectado al Core de Nostradamus.');
+            document.getElementById('run-btn').disabled = false;
+        };
+
+        ws.onclose = () => {
+            setTimeout(connectWebSocket, 3000);
+        };
+
+        ws.onmessage = (e) => {
+            const data = JSON.parse(e.data);
+            if (data.type === 'log') {
+                const clsMap = { 'INFO': 'log-info', 'WARNING': 'log-warn', 'ERROR': 'log-danger', 'SUCCESS': 'log-ok' };
+                let css = clsMap[data.level] || 'log-neutral';
+                if (data.msg.startsWith('[*]')) css = 'log-signal';
+                if (data.msg.startsWith('=')) css = 'log-sep';
+                if (data.msg.includes('[DONE]')) css = 'log-done';
+
+                addLog(document.getElementById('terminal'), css, data.msg);
+                addLog(document.getElementById('admin-terminal'), css, data.msg);
+                allLogs.push({ txt: data.msg, cls: css, ts: nowStr() });
+            }
+            else if (data.type === 'step') {
+                if (data.status === 'running') setStep(data.num, 'active');
+                else if (data.status === 'completed') setStep(data.num, 'done');
+                else if (data.status === 'failed') setStep(data.num, 'failed');
+            }
+            else if (data.type === 'result') {
+                currentData = data.data;
+                finishSimulation();
+            }
+            else if (data.type === 'error') {
+                addLog(document.getElementById('terminal'), 'log-danger', "Error: " + data.msg);
+                finishSimulation(true);
+            }
+        };
+    }
+
+    function startSimulation() {
+        if (simRunning || !ws || ws.readyState !== WebSocket.OPEN) return;
+        simRunning = true;
+        allLogs = [];
+        currentData = null;
+
+        const btn = document.getElementById('run-btn');
+        btn.disabled = true;
+        btn.innerHTML = '<div class="btn-icon"></div> ANALIZANDO...';
+
+        const liveDot = document.getElementById('live-dot');
+        liveDot.style.background = 'var(--accent)';
+        liveDot.style.animation = 'pulse-dot 2s infinite';
+        document.getElementById('live-label').textContent = 'LIVE';
+
+        const term = document.getElementById('terminal');
+        term.innerHTML = '';
+        document.getElementById('admin-terminal').innerHTML = '';
+        document.getElementById('result-panel').innerHTML = '<div class="placeholder"><div class="placeholder-icon">◈</div><span>Procesando...</span></div>';
+        document.getElementById('term-dot').classList.add('active');
+        document.getElementById('res-dot').classList.add('active');
+
+        ['1', '2', '3', '4'].forEach(n => { setStep(n, ''); document.getElementById('ss-' + n).textContent = '—'; });
+
+        ws.send('start');
+    }
+
+    function finishSimulation(hasError = false) {
+        document.getElementById('term-dot').classList.remove('active');
+        document.getElementById('res-dot').classList.remove('active');
+
+        const liveDot = document.getElementById('live-dot');
+        liveDot.style.background = 'var(--accent2)';
+        liveDot.style.animation = 'none';
+        document.getElementById('live-label').textContent = 'DONE';
+
+        const btn = document.getElementById('run-btn');
+        btn.disabled = false;
+        btn.innerHTML = '<div class="btn-icon"></div> NUEVO ANÁLISIS';
+
+        simRunning = false;
+
+        if (!hasError) {
+            showResult();
+            updateMarket();
+            updateAdmin();
+        }
+    }
+
+    // Iniciar conexion al cargar la pagina
+    window.addEventListener('load', () => {
+        connectWebSocket();
+    });
+</script>
