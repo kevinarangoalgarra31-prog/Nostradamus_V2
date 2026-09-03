@@ -28,7 +28,8 @@ def obtener_titulares_rss(
     gl = "CO" if idioma == "es" else "US"
     ceid = "CO:es-419" if idioma == "es" else "US:en"
 
-    query_encoded = urllib.parse.quote(f"{activo} when:1d")
+    # Búsqueda exacta del activo para evitar ruido de otros activos
+    query_encoded = urllib.parse.quote(f'"{activo}" when:1d')
     url = f"https://news.google.com/rss/search?q={query_encoded}&hl={hl}&gl={gl}&ceid={ceid}"
 
     feed = feedparser.parse(url)

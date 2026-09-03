@@ -104,8 +104,9 @@ Responde ÚNICAMENTE con el número (-1, 0, o 1), sin explicaciones ni texto adi
     def obtener_consenso_sentimiento(self, noticias_analizadas: List[Dict[str, Any]]) -> int:
         """
         Calcula la postura cualitativa consolidada a partir de una lista de noticias ya evaluadas:
-        - Si alguna noticia es de pánico extremo (-1), se prioriza la alerta defensiva.
-        - De lo contrario, se calcula por mayoría o promedio.
+        - Si alguna noticia es de pánico extremo (-1), se prioriza la alerta defensiva (preservación de capital).
+        - Para considerar Euforia (+1), debe existir una convicción mayoritaria clara (promedio >= 0.5).
+        - De lo contrario, se califica como Neutral (0).
 
         Returns:
             int (-1, 0, o 1).
@@ -115,14 +116,29 @@ Responde ÚNICAMENTE con el número (-1, 0, o 1), sin explicaciones ni texto adi
 
         sentimientos = [n.get("sentimiento", 0) for n in noticias_analizadas]
 
-        # Filosofía de preservación de capital: si hay pánico extremo en alguna noticia, alarma
+        # Freno de emergencia cualitativo: si hay pánico extremo en alguna noticia, alarma
         if -1 in sentimientos:
             return -1
 
         promedio = sum(sentimientos) / len(sentimientos)
-        if promedio > 0.3:
+        if promedio >= 0.5:
             return 1
-        elif promedio < -0.3:
+        elif promedio <= -0.5:
             return -1
         return 0
+
+    def generar_resumen_contexto(self, noticias_analizadas: List[Dict[str, Any]]) -> str:
+        """Genera un resumen textual legible de los titulares evaluados para el Árbitro."""
+        if not noticias_analizadas:
+            return "Sin titulares disponibles"
+
+        positivos = sum(1 for n in noticias_analizadas if n.get("sentimiento") == 1)
+        neutrales = sum(1 for n in noticias_analizadas if n.get("sentimiento") == 0)
+        negativos = sum(1 for n in noticias_analizadas if n.get("sentimiento") == -1)
+
+        resumen = f"{len(noticias_analizadas)} noticias analizadas [{positivos} alcistas, {neutrales} neutrales, {negativos} pánico].\n"
+        for i, n in enumerate(noticias_analizadas, 1):
+            signo = f"{n.get('sentimiento', 0):+d}"
+            resumen += f"     {i}. [{signo}] {n.get('titulo', '')} ({n.get('fuente', 'Web')})\n"
+        return resumen.strip()
 

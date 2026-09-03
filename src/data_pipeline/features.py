@@ -12,7 +12,7 @@ def calcular_caracteristicas(
     sma_window: int = 20,
     guardar_csv: bool = False,
     directorio_salida: str = "data/processed",
-    nombre_archivo: str = "btc_features.csv"
+    nombre_archivo: str = "features.csv"
 ) -> pd.DataFrame:
     """
     Calcula indicadores técnicos básicos y la variable objetivo para Machine Learning.

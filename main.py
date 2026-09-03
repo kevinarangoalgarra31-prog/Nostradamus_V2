@@ -43,10 +43,12 @@ def ejecutar_pipeline(
         guardar_csv=guardar_datos
     )
 
+    nombre_features = f"{ticker.replace('-', '_')}_features.csv"
     df_features = calcular_caracteristicas(
         df=df_raw,
         sma_window=20,
-        guardar_csv=guardar_datos
+        guardar_csv=guardar_datos,
+        nombre_archivo=nombre_features
     )
 
     modelo = XGBoostTrader(n_estimators=100, learning_rate=0.1, random_state=42)
@@ -85,7 +87,7 @@ def ejecutar_pipeline(
 
         if noticias_analizadas:
             sentimiento_consenso = analyzer.obtener_consenso_sentimiento(noticias_analizadas)
-            resumen_noticia = noticias_analizadas[0]["titulo"]
+            resumen_noticia = analyzer.generar_resumen_contexto(noticias_analizadas)
     else:
         print("⚠️ Modo simulado / sin API key de Groq para Pilar 2.")
         if noticias:
