@@ -26,6 +26,7 @@ def ejecutar_pipeline(
     activo_noticias: str = "Bitcoin",
     fecha_inicio: str = "2022-01-01",
     max_noticias: int = 3,
+    idioma: str = "en",
     guardar_datos: bool = True
 ):
     print("=" * 60)
@@ -66,8 +67,8 @@ def ejecutar_pipeline(
     # PILAR 2: CEREBRO CUALITATIVO (Noticias RSS + Groq LLM)
     # -------------------------------------------------------------
     print("\n--- [PILAR 2] RADAR DE NOTICIAS Y ANÁLISIS CUALITATIVO ---")
-    print(f"📡 Buscando titulares en vivo para '{activo_noticias}'...")
-    noticias = obtener_titulares_rss(activo=activo_noticias, max_noticias=max_noticias)
+    print(f"📡 Buscando titulares en vivo para '{activo_noticias}' (Idioma: {idioma})...")
+    noticias = obtener_titulares_rss(activo=activo_noticias, max_noticias=max_noticias, idioma=idioma)
     print(f"Se obtuvieron {len(noticias)} titulares recientes.")
 
     analyzer = SentimentAnalyzer()
@@ -111,17 +112,19 @@ def ejecutar_pipeline(
 
 def main():
     parser = argparse.ArgumentParser(description="Nostradamus V2 - Trading Híbrido IA")
-    parser.add_argument("--ticker", type=str, default="BTC-USD", help="Ticker del activo (ej. BTC-USD)")
-    parser.add_argument("--activo", type=str, default="Bitcoin", help="Nombre del activo para noticias RSS")
-    parser.add_argument("--inicio", type=str, default="2022-01-01", help="Fecha inicial YYYY-MM-DD")
-    parser.add_argument("--max-noticias", type=int, default=3, help="Cantidad de noticias a evaluar")
+    parser.add_argument("--ticker", type=str, default="BTC-USD", help="Ticker del activo en Yahoo Finance (ej. BTC-USD, ETH-USD, AAPL)")
+    parser.add_argument("--activo", type=str, default="Bitcoin", help="Nombre del activo para noticias RSS (ej. Bitcoin, Ethereum, Apple)")
+    parser.add_argument("--inicio", type=str, default="2022-01-01", help="Fecha inicial para datos históricos YYYY-MM-DD")
+    parser.add_argument("--max-noticias", type=int, default=3, help="Cantidad de noticias a evaluar por el LLM")
+    parser.add_argument("--idioma", type=str, default="en", choices=["en", "es"], help="Idioma de las noticias RSS ('en' para inglés, 'es' para español)")
 
     args = parser.parse_args()
     ejecutar_pipeline(
         ticker=args.ticker,
         activo_noticias=args.activo,
         fecha_inicio=args.inicio,
-        max_noticias=args.max_noticias
+        max_noticias=args.max_noticias,
+        idioma=args.idioma
     )
 
 
