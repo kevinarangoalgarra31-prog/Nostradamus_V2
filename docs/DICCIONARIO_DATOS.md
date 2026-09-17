@@ -1,0 +1,31 @@
+# Diccionario de datos
+
+- **Open**: Precio de apertura del periodo.
+- **High**: Precio máximo observado durante el periodo.
+- **Low**: Precio mínimo observado durante el periodo.
+- **Close**: Precio de cierre del periodo.
+- **Volume**: Volumen reportado para el periodo.
+- **Retorno_Diario**: Variación porcentual del cierre respecto al periodo anterior.
+- **Retorno_5**: Retorno acumulado de los últimos cinco periodos.
+- **Rango_HL**: Rango máximo-mínimo normalizado por el cierre.
+- **RSI**: Índice de fuerza relativa calculado únicamente con observaciones pasadas.
+- **MACD**: Diferencia entre las medias exponenciales rápida y lenta.
+- **MACD_Signal**: Media exponencial de la línea MACD.
+- **MACD_Hist**: Diferencia entre MACD y su línea de señal.
+- **Volatilidad**: Desviación estándar móvil anualizada de los retornos.
+- **Momentum**: Cambio porcentual del cierre en la ventana de momentum.
+- **Volumen_Relativo**: Volumen dividido por su media móvil.
+- **Target_Return**: Retorno futuro usado exclusivamente para construir Target.
+- **Target**: 1 si Target_Return supera el umbral; 0 en caso contrario.
+- **SMA_10**: Media móvil simple del cierre para la ventana indicada.
+- **Dist_SMA_10**: Distancia porcentual del cierre frente a la SMA indicada.
+- **SMA_20**: Media móvil simple del cierre para la ventana indicada.
+- **Dist_SMA_20**: Distancia porcentual del cierre frente a la SMA indicada.
+- **SMA_50**: Media móvil simple del cierre para la ventana indicada.
+- **Dist_SMA_50**: Distancia porcentual del cierre frente a la SMA indicada.
+- **EMA_12**: Media móvil exponencial del cierre para la ventana indicada.
+- **EMA_26**: Media móvil exponencial del cierre para la ventana indicada.
+- **RSI_14**: Índice de fuerza relativa calculado únicamente con observaciones pasadas.
+- **Volatilidad_20**: Desviación estándar móvil anualizada de los retornos.
+- **Momentum_10**: Cambio porcentual del cierre en la ventana de momentum.
+- **Volumen_Relativo_20**: Volumen dividido por su media móvil.

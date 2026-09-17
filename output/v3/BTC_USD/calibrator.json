@@ -1,0 +1,6 @@
+{
+  "method": "sigmoid",
+  "coefficient": -0.358173872646603,
+  "intercept": -0.03901710573681424,
+  "input": "logit(raw_probability)"
+}

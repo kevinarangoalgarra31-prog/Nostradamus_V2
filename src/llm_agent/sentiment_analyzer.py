@@ -6,7 +6,7 @@ su sentimiento e impacto en el riesgo (-1: Pánico, 0: Neutral, 1: Euforia).
 
 import os
 import re
-from typing import List, Dict, Optional
+from typing import Any, Dict, List, Optional
 from dotenv import load_dotenv
 from groq import Groq
 
@@ -141,4 +141,3 @@ Responde ÚNICAMENTE con el número (-1, 0, o 1), sin explicaciones ni texto adi
             signo = f"{n.get('sentimiento', 0):+d}"
             resumen += f"     {i}. [{signo}] {n.get('titulo', '')} ({n.get('fuente', 'Web')})\n"
         return resumen.strip()
-

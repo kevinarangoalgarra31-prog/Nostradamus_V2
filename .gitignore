@@ -8,9 +8,11 @@ dist/
 build/
 data/raw/*
 data/processed/*
+data/cache/
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 .gemini/
 .ipynb_checkpoints/
 *.ipynb_checkpoints/
 stockdata/
+tmp/

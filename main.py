@@ -15,7 +15,8 @@ try:
 except Exception:
     pass
 
-from src.data_pipeline import descargar_datos, calcular_caracteristicas, obtener_titulares_rss
+from src.data_pipeline import descargar_datos, calcular_caracteristicas
+from src.data_pipeline.news_fetcher import obtener_titulares_rss
 from src.models import XGBoostTrader
 from src.llm_agent import SentimentAnalyzer
 from src.risk_manager import ArbitroRiesgo

@@ -1,176 +1,94 @@
-<h1 align="center"> NOSTRADAMUS </h1>
+# Nostradamus V3
 
-<p align="center">
-  <strong>Sistema Híbrido de Trading Basado en IA (XGBoost + LLMs)</strong>
-</p>
+Arquitectura experimental para estudiar si XGBoost, una señal textual y reglas deterministas de riesgo aportan valor fuera de muestra en decisiones de trading. El proyecto prioriza trazabilidad y evaluación reproducible; no promete rentabilidad ni constituye asesoría financiera.
 
----
+## Estado
 
-## 🏗️ Nueva Arquitectura de 3 Pilares
+- [x] Fase 1: definición experimental.
+- [x] Fase 2: adquisición, validación, versionado e ingeniería causal de datos.
+- [x] Fase 3: entrenamiento, calibración y validación walk-forward de XGBoost.
+- [ ] Fase 4: señal de sentimiento con titulares fechados y verificables.
+- [ ] Fase 5: árbitro de riesgo, backtesting comparativo y ablaciones.
+- [ ] Fase 6: paper trading y análisis de estabilidad.
 
-El proyecto evolucionó de un prototipo secuencial a un sistema híbrido que combina la precisión matemática con el análisis de contexto del mundo real.
+El código RSS conservado del prototipo no forma parte del alcance científico actual.
 
-```mermaid
-graph TD
-    A[Datos OHLCV y Técnicos] -->|Entrenamiento| B(Cerebro Cuantitativo: XGBoost)
-    C[Noticias y Reddit] -->|Análisis NLP| D(Cerebro Cualitativo: Groq / LLaMA)
-    B -->|Probabilidad %| E{El Árbitro: Gestión de Riesgo}
-    D -->|Sentimiento -1 a +1| E
-    E -->|Criterio de Kelly| F[Decisión: Aprobar, Reducir o Abortar]
-```
+## Fases 1 y 2
 
-## 📁 Estructura del Proyecto
+La configuración canónica está en `config/experiment.yaml`. Allí se fijan universo, periodo, frecuencia, horizonte objetivo, ventanas, semilla y costos antes de entrenar un modelo.
 
-Esta estructura está diseñada para facilitar la experimentación científica y el desarrollo del modelo:
+El pipeline:
 
-```text
-Nostradamus-main/
-├── notebooks/                 # Cuadernos Jupyter para experimentación y aprendizaje
-│   └── Tesis del Trader.ipynb
-├── data/                      # Base de datos local
-│   ├── raw/                   # Datos crudos (descargados de APIs)
-│   └── processed/             # Datos limpios con indicadores matemáticos
-├── src/                       # Código fuente de producción
-│   ├── data_pipeline/         # Scripts para automatizar descargas de datos
-│   ├── models/                # Código para entrenar y guardar XGBoost
-│   ├── llm_agent/             # Interacción con la API de Groq
-│   └── risk_manager/          # Lógica del Árbitro y Criterio de Kelly
-├── docs/                      # Documentación del proyecto (PDFs y Hoja de Ruta)
-├── legacy_v1/                 # Código original del prototipo secuencial V1
-├── .env.example               # Plantilla para variables de entorno
-└── requirements.txt           # Dependencias del proyecto
-```
+1. descarga o carga OHLCV;
+2. normaliza columnas y fechas;
+3. rechaza duplicados, precios incoherentes, volumen negativo o faltantes excesivos;
+4. guarda CSV versionado y manifiesto JSON con SHA-256;
+5. calcula retornos, SMA, EMA, MACD, RSI, volatilidad, momentum, rango y volumen relativo;
+6. construye la etiqueta futura sin asignar un valor artificial a la última observación.
 
-## 📦 Instalación Rápida
+## Instalación
 
-```bash
-# 1. Crear entorno virtual (si no existe)
+```powershell
 python -m venv venv
-
-# 2. Activar entorno virtual
-# En Windows:
-venv\Scripts\activate
-# En Linux/Mac:
-source venv/bin/activate
-
-# 3. Instalar dependencias
+.\venv\Scripts\Activate.ps1
 pip install -r requirements.txt
-
-# 4. Configurar variables de entorno
-# Copia .env.example a .env y añade tu GROQ_API_KEY
-copy .env.example .env
 ```
 
----
+## Preparar datos
 
-## ⚡ Modos de Ejecución y Casos de Uso (CLI)
+Descarga los activos declarados en la configuración:
 
-El sistema cuenta con un orquestador principal [`main.py`](file:///c:/Users/kevin.arango.a/Documents/GitHub/Nostradamus_V2/main.py) que ejecuta el pipeline de los 3 pilares de forma automatizada.
-
-### 📋 Tabla de Parámetros Disponibles
-
-| Parámetro | Tipo | Valor por Defecto | Descripción |
-|---|---|---|---|
-| `--ticker` | `str` | `BTC-USD` | Símbolo del activo en Yahoo Finance (ej. `BTC-USD`, `ETH-USD`, `AAPL`, `NVDA`). |
-| `--activo` | `str` | `Bitcoin` | Nombre del activo para buscar noticias en Google News RSS (ej. `Bitcoin`, `Ethereum`, `Apple`). |
-| `--inicio` | `str` | `2022-01-01` | Fecha inicial de datos históricos en formato `YYYY-MM-DD`. |
-| `--max-noticias` | `int` | `3` | Número de titulares recientes a evaluar por el Cerebro Cualitativo (LLM). |
-| `--idioma` | `str` | `en` | Idioma de las noticias RSS: `en` (inglés, mayor cobertura) o `es` (español). |
-
----
-
-### 💡 Casos de Uso de Ejecución
-
-#### Caso 1: Ejecución Estándar (Bitcoin por Defecto)
-No necesitas escribir ningún parámetro; usa los valores óptimos por defecto:
-```bash
-python main.py
+```powershell
+python prepare_data.py --config config/experiment.yaml
 ```
 
-#### Caso 2: Criptoactivos Alternativos (Ethereum o Solana)
-Personaliza el ticker de Yahoo Finance y el término de búsqueda de noticias:
-```bash
-# Para Ethereum
-python main.py --ticker ETH-USD --activo Ethereum
+Prueba reproducible con un CSV local, sin escribir artefactos:
 
-# Para Solana con 5 noticias
-python main.py --ticker SOL-USD --activo Solana --max-noticias 5
+```powershell
+python prepare_data.py --config config/experiment.yaml `
+  --ticker BTC-USD `
+  --input-csv data/raw/BTC_USD_2023-01-01.csv `
+  --no-save
 ```
 
-#### Caso 3: Noticias en Español
-Si prefieres analizar el sentimiento a partir de medios en español (América Latina / España):
-```bash
-python main.py --ticker BTC-USD --activo Bitcoin --idioma es
+Los datos aceptados se guardan en `data/raw` y `data/processed`. Cada CSV tiene un manifiesto adyacente con metadatos, controles de calidad y huella del contenido.
+
+## Demostración V3
+
+La V3 selecciona hiperparámetros mediante particiones temporales internas, calibra las probabilidades sobre un bloque posterior y evalúa en un tercer bloque completamente fuera de muestra. Las ventanas de prueba no se solapan.
+
+```powershell
+python demo_v3.py `
+  --config config/experiment.yaml `
+  --modeling-config config/modeling_v3.yaml
 ```
 
-#### Caso 4: Entrenamiento con Historial Extendido
-Entrena el modelo XGBoost con una ventana temporal más amplia para mayor robustez estadística:
-```bash
-python main.py --ticker BTC-USD --activo Bitcoin --inicio 2019-01-01
+La ejecución genera en `output/v3`:
+
+- informe comparativo en Markdown;
+- predicciones fuera de muestra;
+- métricas por activo y por ventana;
+- modelo XGBoost final y parámetros del calibrador;
+- manifiesto que enlaza el modelo con la huella del dataset;
+- gráficos de probabilidades, calibración, confusión e importancia de variables.
+
+La demostración actual es deliberadamente honesta: muestra que la calibración mejora las probabilidades crudas, pero que el modelo técnico todavía no supera de forma consistente la línea base probabilística. Este resultado es válido como evidencia experimental y evita presentar una precisión inflada.
+
+## Pruebas
+
+```powershell
+python -m unittest discover -s tests -v
 ```
 
-#### Caso 5: Acciones del Mercado Tradicional (Wall Street)
-El sistema también opera con activos tradicionales como Apple o Nvidia:
-```bash
-# Para Apple
-python main.py --ticker AAPL --activo Apple --inicio 2021-01-01 --max-noticias 5
+Las pruebas no dependen de Internet: verifican configuración, validación OHLCV, manifiestos, hash, ausencia de lookahead, separación temporal, calibración y persistencia del modelo.
 
-# Para Nvidia
-python main.py --ticker NVDA --activo Nvidia --inicio 2022-01-01
-```
+## Documentación
 
-#### Caso 6: Control Total (Todos los Parámetros Combinados)
-```bash
-python main.py --ticker ETH-USD --activo Ethereum --inicio 2021-01-01 --max-noticias 5 --idioma en
-```
+- `docs/PROTOCOLO_FASES_1_2.md`: decisiones, ejecución y criterios de aceptación.
+- `docs/DICCIONARIO_DATOS.md`: significado de las variables derivadas.
+- `config/modeling_v3.yaml`: protocolo de entrenamiento y búsqueda de hiperparámetros.
+- `output/v3/DEMO_V3.md`: resultados reproducibles de la demostración.
+- `docs/HOJA_DE_RUTA_POST_V3.md`: trabajo planificado para las fases posteriores.
+- `output/docx` y `output/pdf`: propuesta y capítulos 1 a 3 reformulados.
 
-#### Ayuda Interactiva en Consola
-Para consultar la documentación de los argumentos directamente en la terminal:
-```bash
-python main.py --help
-```
-
----
-
-## 🐍 Uso Modular en Código Python
-
-También puedes importar y utilizar cualquiera de los componentes de forma independiente en tus propios scripts o notebooks:
-
-```python
-from src.data_pipeline import descargar_datos, calcular_caracteristicas, obtener_titulares_rss
-from src.models import XGBoostTrader
-from src.llm_agent import SentimentAnalyzer
-from src.risk_manager import ArbitroRiesgo, calcular_criterio_kelly
-
-# 1. Descargar datos y calcular características
-df_raw = descargar_datos(ticker="BTC-USD", fecha_inicio="2022-01-01")
-df_feat = calcular_caracteristicas(df_raw, sma_window=20)
-
-# 2. Entrenar y evaluar XGBoost
-modelo = XGBoostTrader(n_estimators=100, learning_rate=0.1)
-X_train, X_test, y_train, y_test = modelo.preparar_datos(df_feat)
-modelo.entrenar(X_train, y_train)
-probabilidad_subida = modelo.predecir_probabilidad(X_test.iloc[[-1]])
-
-# 3. Radar RSS + Análisis LLM con Groq
-noticias = obtener_titulares_rss(activo="Bitcoin", max_noticias=3)
-analyzer = SentimentAnalyzer()
-noticias_analizadas = analyzer.analizar_titulares(noticias)
-sentimiento_consenso = analyzer.obtener_consenso_sentimiento(noticias_analizadas)
-
-# 4. Decisión del Árbitro
-arbitro = ArbitroRiesgo(ratio_ganancia_perdida=1.0)
-decision = arbitro.evaluar(
-    probabilidad_xgb=probabilidad_subida,
-    sentimiento_llm=sentimiento_consenso,
-    contexto_noticia=analyzer.generar_resumen_contexto(noticias_analizadas)
-)
-```
-
----
-
-## 📓 Experimentación Interactiva (Notebooks)
-Para ejecutar y experimentar paso a paso con visualizaciones interactivas:
-```bash
-jupyter notebook notebooks/"Tesis del Trader.ipynb"
-```
+`main.py` conserva el orquestador del prototipo para referencia. Los experimentos formales deben utilizar `prepare_data.py` y `demo_v3.py` con sus configuraciones versionadas.

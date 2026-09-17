@@ -1,0 +1,166 @@
+{
+  "version": "3.0.0",
+  "tickers": {
+    "BTC-USD": {
+      "dataset": "data\\processed\\BTC_USD_1d_processed_2020_02_19_2026_09_15_158c3cb94a1d.csv",
+      "dataset_sha256": "158c3cb94a1d4cc7638cb3516c659f0aff7853b460582e5bd82092a05a8cdf3c",
+      "features": [
+        "Retorno_Diario",
+        "Retorno_5",
+        "Rango_HL",
+        "SMA_10",
+        "Dist_SMA_10",
+        "SMA_20",
+        "Dist_SMA_20",
+        "SMA_50",
+        "Dist_SMA_50",
+        "EMA_12",
+        "EMA_26",
+        "MACD",
+        "MACD_Signal",
+        "MACD_Hist",
+        "RSI_14",
+        "Volatilidad_20",
+        "Momentum_10",
+        "Volumen_Relativo_20"
+      ],
+      "metrics": {
+        "xgboost_calibrated": {
+          "accuracy": 0.5066666666666667,
+          "balanced_accuracy": 0.5059940430029983,
+          "precision": 0.5132924335378323,
+          "recall": 0.5492341356673961,
+          "f1": 0.5306553911205074,
+          "mcc": 0.012031907174031919,
+          "roc_auc": 0.5098320087329773,
+          "brier_score": 0.2513132338658229,
+          "log_loss": 0.6958282190807491,
+          "ece": 0.02848728004550986,
+          "positive_rate": 0.5077777777777778,
+          "predicted_positive_rate": 0.5433333333333333,
+          "samples": 900.0
+        },
+        "xgboost_raw": {
+          "accuracy": 0.5011111111111111,
+          "balanced_accuracy": 0.5036700238576248,
+          "precision": 0.5132450331125827,
+          "recall": 0.33916849015317285,
+          "f1": 0.40843214756258234,
+          "mcc": 0.007771498773553298,
+          "roc_auc": 0.5091207255088886,
+          "brier_score": 0.26025368547645306,
+          "log_loss": 0.7148564644167033,
+          "ece": 0.0875090823902024,
+          "positive_rate": 0.5077777777777778,
+          "predicted_positive_rate": 0.33555555555555555,
+          "samples": 900.0
+        },
+        "constant_baseline": {
+          "accuracy": 0.5077777777777778,
+          "balanced_accuracy": 0.5,
+          "precision": 0.5077777777777778,
+          "recall": 1.0,
+          "f1": 0.6735445836403832,
+          "mcc": 0.0,
+          "roc_auc": 0.47421598312678126,
+          "brier_score": 0.25022384498478173,
+          "log_loss": 0.6935953816560756,
+          "ece": 0.00484171075837736,
+          "positive_rate": 0.5077777777777778,
+          "predicted_positive_rate": 1.0,
+          "samples": 900.0
+        }
+      },
+      "artifacts": {
+        "predictions": "output\\v3\\BTC_USD\\predictions_oos.csv",
+        "folds": "output\\v3\\BTC_USD\\folds.json",
+        "metrics": "output\\v3\\BTC_USD\\metrics.json",
+        "model": "output\\v3\\BTC_USD\\xgboost_v3.json",
+        "calibrator": "output\\v3\\BTC_USD\\calibrator.json",
+        "manifest": "output\\v3\\BTC_USD\\model_manifest.json"
+      },
+      "figure": "output\\v3\\BTC_USD\\diagnostic.png"
+    },
+    "ETH-USD": {
+      "dataset": "data\\processed\\ETH_USD_1d_processed_2020_02_19_2026_09_15_118862468e38.csv",
+      "dataset_sha256": "118862468e383fe19306f38852845c88990fc6976061292596c6e36d8a693986",
+      "features": [
+        "Retorno_Diario",
+        "Retorno_5",
+        "Rango_HL",
+        "SMA_10",
+        "Dist_SMA_10",
+        "SMA_20",
+        "Dist_SMA_20",
+        "SMA_50",
+        "Dist_SMA_50",
+        "EMA_12",
+        "EMA_26",
+        "MACD",
+        "MACD_Signal",
+        "MACD_Hist",
+        "RSI_14",
+        "Volatilidad_20",
+        "Momentum_10",
+        "Volumen_Relativo_20"
+      ],
+      "metrics": {
+        "xgboost_calibrated": {
+          "accuracy": 0.5155555555555555,
+          "balanced_accuracy": 0.512326439484122,
+          "precision": 0.5164835164835165,
+          "recall": 0.7199124726477024,
+          "f1": 0.6014625228519196,
+          "mcc": 0.02710066927586574,
+          "roc_auc": 0.5180488118112532,
+          "brier_score": 0.25104124456294,
+          "log_loss": 0.6953065369041531,
+          "ece": 0.020700766243754366,
+          "positive_rate": 0.5077777777777778,
+          "predicted_positive_rate": 0.7077777777777777,
+          "samples": 900.0
+        },
+        "xgboost_raw": {
+          "accuracy": 0.53,
+          "balanced_accuracy": 0.5302492948911095,
+          "precision": 0.5389908256880734,
+          "recall": 0.5142231947483589,
+          "f1": 0.5263157894736842,
+          "mcc": 0.06052056581273006,
+          "roc_auc": 0.530091231952423,
+          "brier_score": 0.2526171098476128,
+          "log_loss": 0.6988236422957658,
+          "ece": 0.033011624051464926,
+          "positive_rate": 0.5077777777777778,
+          "predicted_positive_rate": 0.48444444444444446,
+          "samples": 900.0
+        },
+        "constant_baseline": {
+          "accuracy": 0.5077777777777778,
+          "balanced_accuracy": 0.5,
+          "precision": 0.5077777777777778,
+          "recall": 1.0,
+          "f1": 0.6735445836403832,
+          "mcc": 0.0,
+          "roc_auc": 0.47688329521711426,
+          "brier_score": 0.2505705391786344,
+          "log_loss": 0.6942916144079456,
+          "ece": 0.01790476190476198,
+          "positive_rate": 0.5077777777777778,
+          "predicted_positive_rate": 1.0,
+          "samples": 900.0
+        }
+      },
+      "artifacts": {
+        "predictions": "output\\v3\\ETH_USD\\predictions_oos.csv",
+        "folds": "output\\v3\\ETH_USD\\folds.json",
+        "metrics": "output\\v3\\ETH_USD\\metrics.json",
+        "model": "output\\v3\\ETH_USD\\xgboost_v3.json",
+        "calibrator": "output\\v3\\ETH_USD\\calibrator.json",
+        "manifest": "output\\v3\\ETH_USD\\model_manifest.json"
+      },
+      "figure": "output\\v3\\ETH_USD\\diagnostic.png"
+    }
+  },
+  "report": "output\\v3\\DEMO_V3.md"
+}

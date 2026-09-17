@@ -1,0 +1,87 @@
+{
+  "project_version": "3.0.0",
+  "ticker": "ETH-USD",
+  "dataset_sha256": "118862468e383fe19306f38852845c88990fc6976061292596c6e36d8a693986",
+  "training_start": "2020-02-19T00:00:00",
+  "training_end": "2026-09-15T00:00:00",
+  "features": [
+    "Retorno_Diario",
+    "Retorno_5",
+    "Rango_HL",
+    "SMA_10",
+    "Dist_SMA_10",
+    "SMA_20",
+    "Dist_SMA_20",
+    "SMA_50",
+    "Dist_SMA_50",
+    "EMA_12",
+    "EMA_26",
+    "MACD",
+    "MACD_Signal",
+    "MACD_Hist",
+    "RSI_14",
+    "Volatilidad_20",
+    "Momentum_10",
+    "Volumen_Relativo_20"
+  ],
+  "final_parameters": {
+    "colsample_bytree": 0.8,
+    "learning_rate": 0.03,
+    "max_depth": 3,
+    "min_child_weight": 1,
+    "n_estimators": 120,
+    "reg_lambda": 1.0,
+    "subsample": 0.8
+  },
+  "calibration": {
+    "method": "sigmoid",
+    "coefficient": -0.2818191610201044,
+    "intercept": 0.10418582857166282,
+    "input": "logit(raw_probability)"
+  },
+  "modeling_config": {
+    "version": "3.0.0",
+    "decision_threshold": 0.5,
+    "calibration_method": "sigmoid",
+    "inner_splits": 3,
+    "walk_forward": {
+      "min_train_rows": 900,
+      "calibration_rows": 180,
+      "test_rows": 180,
+      "step_rows": 180,
+      "max_folds": 5
+    },
+    "parameter_grid": {
+      "n_estimators": [
+        120
+      ],
+      "max_depth": [
+        3,
+        5
+      ],
+      "learning_rate": [
+        0.03,
+        0.07
+      ],
+      "subsample": [
+        0.8
+      ],
+      "colsample_bytree": [
+        0.8
+      ],
+      "min_child_weight": [
+        1
+      ],
+      "reg_lambda": [
+        1.0
+      ]
+    }
+  },
+  "artifacts": {
+    "predictions": "predictions_oos.csv",
+    "folds": "folds.json",
+    "metrics": "metrics.json",
+    "model": "xgboost_v3.json",
+    "calibrator": "calibrator.json"
+  }
+}
