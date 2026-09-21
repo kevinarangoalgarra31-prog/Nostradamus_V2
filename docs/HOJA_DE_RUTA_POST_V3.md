@@ -6,7 +6,7 @@ La versión 3.0.0 cierra el cerebro cuantitativo como una demostración reproduc
 
 Los resultados actuales son una línea base científica, no una prueba de rentabilidad. La calibración reduce el error de las probabilidades crudas, pero el modelo técnico todavía no supera de manera consistente la probabilidad histórica simple. Las siguientes fases deben intentar aportar información nueva y medirla mediante ablaciones, sin ocultar resultados desfavorables.
 
-## Fase 4 — señal textual verificable
+## Fase 4 — señal textual verificable (implementada en V4)
 
 ### Objetivo
 
@@ -29,7 +29,18 @@ Construir una señal de sentimiento que solo utilice titulares disponibles antes
 - Existe un estado explícito de datos insuficientes.
 - La cobertura y el acuerdo entre fuentes se reportan como métricas.
 
-## Fase 5 — arquitectura híbrida y backtesting
+### Resultado
+
+La V4 implementa los proveedores CSV y Google News RSS detrás de una interfaz
+común, normaliza las fechas a UTC y conserva fecha de publicación y captura.
+El auditor excluye contenido futuro, fuera de ventana, duplicado o en idiomas no
+permitidos. La línea base léxica es determinista y el adaptador LLM exige JSON
+estricto con evidencia literal. Las respuestas inválidas y la falta de cobertura
+tienen estados propios. Los artefactos enlazan titulares, evaluaciones, modelos y
+huellas SHA-256. El conjunto etiquetado incluido es sintético y solo valida el
+pipeline; la evaluación empírica deberá usar un corpus real congelado.
+
+## Fase 5 — arquitectura híbrida y backtesting (motor implementado en V5)
 
 ### Objetivo
 
@@ -58,7 +69,22 @@ Determinar qué componente agrega valor mediante configuraciones comparables:
 - Se reportan resultados favorables y desfavorables.
 - Una mejora debe repetirse en varias ventanas y no depender de una sola operación.
 
-## Fase 6 — paper trading y estabilidad
+### Resultado
+
+La V5 ejecuta B0, B1 y M1 en 900 observaciones OOS por activo, desde la apertura
+posterior a la señal hasta la apertura siguiente. Comisión y slippage se cobran
+por cada cambio de exposición y por la liquidación final. Se guardan retorno,
+volatilidad, Sharpe, Sortino, drawdown, profit factor, exposición, operaciones,
+costos, sensibilidad y resultados por fold y régimen.
+
+M2 y M3 están implementados, incluido Kelly fraccional limitado, pero no se
+publican métricas híbridas con la evidencia actual: las señales reales de 2026 no
+se solapan con las predicciones OOS de 2023–2025. El estado `not_evaluable`
+impide convertir esa ausencia en sentimiento neutral. La sensibilidad a otros
+horizontes requiere entrenar un objetivo distinto y debe versionarse como otro
+experimento; no se reutiliza engañosamente el modelo de horizonte diario.
+
+## Fase 6 — paper trading y estabilidad (implementada en V6)
 
 ### Objetivo
 
@@ -77,6 +103,15 @@ Observar el sistema prospectivamente sin comprometer capital real.
 - Cada decisión conserva entradas, versiones, probabilidad, evidencia y regla aplicada.
 - El sistema puede abstenerse y detenerse automáticamente.
 - No existe conexión con una cuenta real durante el proyecto de grado.
+
+### Resultado
+
+La V6 ejecuta inferencia prospectiva sobre la última vela cerrada, carga el
+modelo y calibrador versionados, exige una señal V4 posterior al cierre y aplica
+el árbitro con Kelly limitado. Cada decisión y liquidación se añade a un diario
+con cadena SHA-256. El sistema se abstiene fuera de la ventana temporal o ante
+datos inválidos, deriva severa, drawdown y degradación del Brier. El precio de
+entrada es una referencia de mercado capturada, nunca una orden real.
 
 ## Fase 7 — cierre académico
 

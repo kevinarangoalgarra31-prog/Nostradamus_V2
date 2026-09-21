@@ -1,0 +1,246 @@
+[Fase 4] Adquiriendo titulares para BTC-USD...
+[Fase 4] Adquiriendo titulares para ETH-USD...
+[Fase 4] BTC-USD · lexicon_baseline · 1/5
+[Fase 4] BTC-USD · lexicon_baseline · 2/5
+[Fase 4] BTC-USD · lexicon_baseline · 3/5
+[Fase 4] BTC-USD · lexicon_baseline · 4/5
+[Fase 4] BTC-USD · lexicon_baseline · 5/5
+[Fase 4] BTC-USD · structured_llm · 1/5
+[Fase 4] BTC-USD · structured_llm · 2/5
+[Fase 4] BTC-USD · structured_llm · 3/5
+[Fase 4] BTC-USD · structured_llm · 4/5
+[Fase 4] BTC-USD · structured_llm · 5/5
+[Fase 4] ETH-USD · lexicon_baseline · 1/5
+[Fase 4] ETH-USD · lexicon_baseline · 2/5
+[Fase 4] ETH-USD · lexicon_baseline · 3/5
+[Fase 4] ETH-USD · lexicon_baseline · 4/5
+[Fase 4] ETH-USD · lexicon_baseline · 5/5
+[Fase 4] ETH-USD · structured_llm · 1/5
+[Fase 4] ETH-USD · structured_llm · 2/5
+[Fase 4] ETH-USD · structured_llm · 3/5
+[Fase 4] ETH-USD · structured_llm · 4/5
+[Fase 4] ETH-USD · structured_llm · 5/5
+{
+  "phase": 4,
+  "version": "4.0.0",
+  "run_id": "20260921T202742_541632Z",
+  "decision_at": "2026-09-21T20:27:45.245163+00:00",
+  "provider": "google_news",
+  "output_dir": "output\\v4_history\\2026\\09\\21\\20260921T202742_541632Z",
+  "assets": {
+    "BTC-USD": {
+      "audit": {
+        "decision_at": "2026-09-21T20:27:45.245163+00:00",
+        "lookback_start": "2026-09-14T20:27:45.245163+00:00",
+        "received": 5,
+        "accepted": 5,
+        "rejected": 0,
+        "rejection_reasons": {},
+        "unique_sources": 5,
+        "languages": {
+          "en": 5
+        },
+        "coverage_status": "covered"
+      },
+      "signals": [
+        {
+          "asset": "BTC-USD",
+          "decision_at": "2026-09-21T20:27:45.245163+00:00",
+          "analyzer": "lexicon_baseline",
+          "model_version": "financial-bilingual-1.0",
+          "status": "ok",
+          "sentiment": 1,
+          "score": 0.2989985693848355,
+          "confidence": 0.39,
+          "relevant_headlines": 5,
+          "total_headlines": 5,
+          "unique_sources": 5,
+          "coverage_ratio": 1.0,
+          "source_agreement": 0.2,
+          "evidence_news_ids": [
+            "74116f98ff57c0bdbf9b2aa78b5b0fe649729e0961f3bf4c6ce1260dc709fb22",
+            "798a8c99076594e2ef7f9fab4b1a2bb1895c36323b78f2a8be39702aa61ea780",
+            "9dc9ade2f6071352f8ffbb9854d30309d4a03d846604e67fe04ce19fb42d6a09",
+            "ded9592b48ab99ce3e2a0b503f2cdab2b6ec741d00037338b549e8b573730f66",
+            "a8c5003a18da41e351e8f524297930f393454b457a7f34f33cbd534ce4d1ce4f"
+          ],
+          "reason": null
+        },
+        {
+          "asset": "BTC-USD",
+          "decision_at": "2026-09-21T20:27:45.245163+00:00",
+          "analyzer": "structured_llm",
+          "model_version": "qwen/qwen3.8-27b|sentiment-json-v1",
+          "status": "ok",
+          "sentiment": 1,
+          "score": 0.24884259259259256,
+          "confidence": 0.9400000000000001,
+          "relevant_headlines": 5,
+          "total_headlines": 5,
+          "unique_sources": 5,
+          "coverage_ratio": 1.0,
+          "source_agreement": 0.4,
+          "evidence_news_ids": [
+            "74116f98ff57c0bdbf9b2aa78b5b0fe649729e0961f3bf4c6ce1260dc709fb22",
+            "798a8c99076594e2ef7f9fab4b1a2bb1895c36323b78f2a8be39702aa61ea780",
+            "9dc9ade2f6071352f8ffbb9854d30309d4a03d846604e67fe04ce19fb42d6a09",
+            "ded9592b48ab99ce3e2a0b503f2cdab2b6ec741d00037338b549e8b573730f66",
+            "a8c5003a18da41e351e8f524297930f393454b457a7f34f33cbd534ce4d1ce4f"
+          ],
+          "reason": null
+        }
+      ],
+      "evaluation": {
+        "items": 5,
+        "manually_labeled": 0,
+        "analyzers": {
+          "lexicon_baseline": {
+            "total_items": 5,
+            "assessed": 5,
+            "valid": 5,
+            "coverage": 1.0,
+            "status_counts": {
+              "ok": 5
+            },
+            "manually_labeled_overlap": 0,
+            "accuracy": null,
+            "macro_f1": null
+          },
+          "structured_llm": {
+            "total_items": 5,
+            "assessed": 5,
+            "valid": 5,
+            "coverage": 1.0,
+            "status_counts": {
+              "ok": 5
+            },
+            "manually_labeled_overlap": 0,
+            "accuracy": null,
+            "macro_f1": null
+          }
+        },
+        "analyzer_agreement": {
+          "lexicon_baseline__vs__structured_llm": {
+            "overlap": 5,
+            "agreement": 0.4
+          }
+        }
+      },
+      "artifacts": {
+        "headlines": "output\\v4_history\\2026\\09\\21\\20260921T202742_541632Z\\BTC_USD\\headlines.csv",
+        "rejected": "output\\v4_history\\2026\\09\\21\\20260921T202742_541632Z\\BTC_USD\\rejected.json",
+        "assessments": "output\\v4_history\\2026\\09\\21\\20260921T202742_541632Z\\BTC_USD\\assessments.csv",
+        "signals": "output\\v4_history\\2026\\09\\21\\20260921T202742_541632Z\\BTC_USD\\signals.json",
+        "evaluation": "output\\v4_history\\2026\\09\\21\\20260921T202742_541632Z\\BTC_USD\\evaluation.json",
+        "manifest": "output\\v4_history\\2026\\09\\21\\20260921T202742_541632Z\\BTC_USD\\run_manifest.json"
+      }
+    },
+    "ETH-USD": {
+      "audit": {
+        "decision_at": "2026-09-21T20:27:45.245163+00:00",
+        "lookback_start": "2026-09-14T20:27:45.245163+00:00",
+        "received": 5,
+        "accepted": 5,
+        "rejected": 0,
+        "rejection_reasons": {},
+        "unique_sources": 5,
+        "languages": {
+          "en": 5
+        },
+        "coverage_status": "covered"
+      },
+      "signals": [
+        {
+          "asset": "ETH-USD",
+          "decision_at": "2026-09-21T20:27:45.245163+00:00",
+          "analyzer": "lexicon_baseline",
+          "model_version": "financial-bilingual-1.0",
+          "status": "ok",
+          "sentiment": 0,
+          "score": 0.0,
+          "confidence": 0.35,
+          "relevant_headlines": 5,
+          "total_headlines": 5,
+          "unique_sources": 5,
+          "coverage_ratio": 1.0,
+          "source_agreement": 1.0,
+          "evidence_news_ids": [
+            "e09999244e513d50fd1f87f9b8b999a4b312b677feb5c853242a693b621e1d51",
+            "136881c1484814663c2b5015518d5ae44d9eb446e417b09f898ce1ed215c24f5",
+            "d495b81e5c4493c4f094ea643cf19eb4cee600bf4f62374edc4b68aa52ee14e3",
+            "73b074df5afb5283579a5dc3987c3d0be1b484ddae28648b47002fc43f1571a7",
+            "6935d3e2668a207ce013401b9db717d6ad1c3c240479766fdacf1cb91af2e680"
+          ],
+          "reason": null
+        },
+        {
+          "asset": "ETH-USD",
+          "decision_at": "2026-09-21T20:27:45.245163+00:00",
+          "analyzer": "structured_llm",
+          "model_version": "qwen/qwen3.8-27b|sentiment-json-v1",
+          "status": "ok",
+          "sentiment": -1,
+          "score": -0.1615044247787611,
+          "confidence": 0.9400000000000001,
+          "relevant_headlines": 5,
+          "total_headlines": 5,
+          "unique_sources": 5,
+          "coverage_ratio": 1.0,
+          "source_agreement": 0.4,
+          "evidence_news_ids": [
+            "e09999244e513d50fd1f87f9b8b999a4b312b677feb5c853242a693b621e1d51",
+            "136881c1484814663c2b5015518d5ae44d9eb446e417b09f898ce1ed215c24f5",
+            "d495b81e5c4493c4f094ea643cf19eb4cee600bf4f62374edc4b68aa52ee14e3",
+            "73b074df5afb5283579a5dc3987c3d0be1b484ddae28648b47002fc43f1571a7",
+            "6935d3e2668a207ce013401b9db717d6ad1c3c240479766fdacf1cb91af2e680"
+          ],
+          "reason": null
+        }
+      ],
+      "evaluation": {
+        "items": 5,
+        "manually_labeled": 0,
+        "analyzers": {
+          "lexicon_baseline": {
+            "total_items": 5,
+            "assessed": 5,
+            "valid": 5,
+            "coverage": 1.0,
+            "status_counts": {
+              "ok": 5
+            },
+            "manually_labeled_overlap": 0,
+            "accuracy": null,
+            "macro_f1": null
+          },
+          "structured_llm": {
+            "total_items": 5,
+            "assessed": 5,
+            "valid": 5,
+            "coverage": 1.0,
+            "status_counts": {
+              "ok": 5
+            },
+            "manually_labeled_overlap": 0,
+            "accuracy": null,
+            "macro_f1": null
+          }
+        },
+        "analyzer_agreement": {
+          "lexicon_baseline__vs__structured_llm": {
+            "overlap": 5,
+            "agreement": 0.4
+          }
+        }
+      },
+      "artifacts": {
+        "headlines": "output\\v4_history\\2026\\09\\21\\20260921T202742_541632Z\\ETH_USD\\headlines.csv",
+        "rejected": "output\\v4_history\\2026\\09\\21\\20260921T202742_541632Z\\ETH_USD\\rejected.json",
+        "assessments": "output\\v4_history\\2026\\09\\21\\20260921T202742_541632Z\\ETH_USD\\assessments.csv",
+        "signals": "output\\v4_history\\2026\\09\\21\\20260921T202742_541632Z\\ETH_USD\\signals.json",
+        "evaluation": "output\\v4_history\\2026\\09\\21\\20260921T202742_541632Z\\ETH_USD\\evaluation.json",
+        "manifest": "output\\v4_history\\2026\\09\\21\\20260921T202742_541632Z\\ETH_USD\\run_manifest.json"
+      }
+    }
+  }
+}

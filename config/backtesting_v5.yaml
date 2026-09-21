@@ -1,0 +1,26 @@
+backtest:
+  version: "5.0.0"
+  # Cripto opera todos los días; la señal del cierre t se ejecuta en la
+  # siguiente apertura disponible y se mantiene hasta la apertura posterior.
+  annualization_periods: 365
+  probability_threshold: 0.50
+
+technical_baseline:
+  sma_column: SMA_20
+  rsi_column: RSI_14
+  rsi_threshold: 50.0
+
+risk:
+  # Kelly fraccional limitado: nunca expone más de 25% del capital.
+  fractional_kelly: 0.25
+  max_exposure: 0.25
+
+sentiment:
+  analyzer: structured_llm
+  minimum_coverage: 0.80
+  minimum_rows: 30
+
+sensitivity:
+  cost_multipliers: [0.0, 1.0, 2.0]
+  probability_thresholds: [0.45, 0.50, 0.55]
+  regime_volatility_column: Volatilidad_20

@@ -1,0 +1,26 @@
+[
+  {
+    "asset": "BTC-USD",
+    "decision_at": "2026-01-08T00:00:00+00:00",
+    "analyzer": "lexicon_baseline",
+    "model_version": "financial-bilingual-1.0",
+    "status": "ok",
+    "sentiment": 1,
+    "score": 0.16451612903225804,
+    "confidence": 0.5833333333333334,
+    "relevant_headlines": 6,
+    "total_headlines": 6,
+    "unique_sources": 1,
+    "coverage_ratio": 1.0,
+    "source_agreement": null,
+    "evidence_news_ids": [
+      "a7caefe3ba3ba50e8cbd898cbc464b148ff2d4cfe62eb482763f365f42e48242",
+      "f507d8c50a7135af9d7e481fc6badafaffd65da0d7405cedb56b45533c2d1016",
+      "6ca92548e60c6e1df9afd43f2079ccd4db78d3860778730c82511b802654f56b",
+      "332f7af93c89a760346751721db2648d1a4d7ec20698822a232519ea948f5470",
+      "66f2bbd9138170ec07fb798acbfd8f34429b028820a3f4961a1f118b1c693c8b",
+      "3c4bd15f6a015cee0bda59ccb6eca5ae81dfca6df31f2f168c6fdb08bad70e27"
+    ],
+    "reason": null
+  }
+]

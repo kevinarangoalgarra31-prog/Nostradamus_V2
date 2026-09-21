@@ -1,0 +1,61 @@
+{
+  "schema_version": "5.0.0",
+  "created_at_utc": "2026-09-21T19:28:15.126866+00:00",
+  "ticker": "BTC-USD",
+  "execution_convention": "Señal al cierre t; entrada en apertura t+1; salida o rebalanceo en apertura t+2.",
+  "commission_bps_one_way": 10.0,
+  "slippage_bps_one_way": 5.0,
+  "config": {
+    "version": "5.0.0",
+    "annualization_periods": 365,
+    "probability_threshold": 0.5,
+    "technical_sma_column": "SMA_20",
+    "technical_rsi_column": "RSI_14",
+    "technical_rsi_threshold": 50.0,
+    "fractional_kelly": 0.25,
+    "max_exposure": 0.25,
+    "sentiment_analyzer": "structured_llm",
+    "minimum_sentiment_coverage": 0.8,
+    "minimum_hybrid_rows": 30,
+    "cost_multipliers": [
+      0.0,
+      1.0,
+      2.0
+    ],
+    "threshold_grid": [
+      0.45,
+      0.5,
+      0.55
+    ],
+    "regime_volatility_column": "Volatilidad_20"
+  },
+  "inputs": {
+    "market_path": "data\\processed\\BTC_USD_1d_processed_2020_02_19_2026_09_15_158c3cb94a1d.csv",
+    "market_sha256": "158c3cb94a1d4cc7638cb3516c659f0aff7853b460582e5bd82092a05a8cdf3c",
+    "predictions_path": "output\\v3\\BTC_USD\\predictions_oos.csv",
+    "predictions_sha256": "1c04a1fef14092a71c09bd23513e7a9a4ded6f9f0dcaa41eb0c1068af312ceaa",
+    "model_manifest_path": "output\\v3\\BTC_USD\\model_manifest.json",
+    "model_version": "3.0.0",
+    "sentiment_root": "output\\v4_history",
+    "sentiment_rows": 0,
+    "sentiment_analyzer": "structured_llm"
+  },
+  "hybrid_status": {
+    "status": "not_evaluable",
+    "valid_rows": 0,
+    "total_rows": 900,
+    "coverage": 0.0,
+    "minimum_coverage": 0.8,
+    "minimum_rows": 30,
+    "reason": "No existe suficiente historia de sentimiento real alineada con las predicciones OOS; M2 y M3 no se puntúan ni se comparan."
+  },
+  "artifact_sha256": {
+    "backtest_timeseries.csv": "28e9d083ae5140cc51d4a7f48197c4a1b3722b25b9568c91b0c2cb65df196f5a",
+    "metrics.json": "9309b7ffaafbe286d5a09403b5516e7272ed0ef9856d20a8adb05e20770b9e51",
+    "cost_sensitivity.csv": "55056816f5228aba4026e05905156ae6e09ad15a4aeaecd967369b26289f6f01",
+    "threshold_sensitivity.csv": "6594aa80124664b6c92f8e141a1532bc1b776bebc37c422274211fa2d215d8de",
+    "window_metrics.csv": "2650222132d0d65294087e90220bd55d183a8f44ba8e307e769a3de87cd246fc",
+    "regime_metrics.csv": "1044a186e30ecd9af53fba04f3df8744937238cd0693ffb644ea8bbda7191340",
+    "equity_curves.png": "8b0fc7d530b94b85cf424a1e15c0b9e3f48eb47be9631d15395cf42895c9106e"
+  }
+}

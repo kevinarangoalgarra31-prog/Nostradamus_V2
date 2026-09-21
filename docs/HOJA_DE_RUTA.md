@@ -1,4 +1,4 @@
-# Hoja de Ruta - Proyecto Nostradamus V3 (Arquitectura Híbrida)
+# Hoja de Ruta - Proyecto Nostradamus V6 (Arquitectura Híbrida)
 
 ## 1. Visión General
 El proyecto Nostradamus evolucionará de un prototipo conceptual a un sistema cuantitativo híbrido. La arquitectura combinará el poder estadístico de algoritmos tradicionales (XGBoost) para procesar números, con la capacidad de comprensión de texto de los Modelos de Lenguaje Grande (LLMs) para procesar contexto y mitigar riesgo.
@@ -41,10 +41,26 @@ Para construir esto paso a paso, asegurar el aprendizaje, y validar cada pieza e
   - Evaluar cinco ventanas walk-forward sin solapamiento y compararlas con una línea base.
   - Guardar modelos, calibradores, predicciones, métricas, gráficas y manifiestos reproducibles.
 
-- [ ] **Fase 4: Integración del LLM para Análisis Cualitativo.**
-  - Conectar el sistema a Groq (LLaMA) u otro LLM.
-  - Crear los "prompts" (instrucciones) adecuados para que el LLM lea titulares de un día específico y devuelva un puntaje estructurado (JSON).
+- [x] **Fase 4: Señal textual verificable.**
+  - Proveedores CSV y Google News RSS desacoplados del análisis.
+  - Controles de fecha de publicación, captura, zona horaria, antigüedad y duplicados.
+  - Línea base léxica bilingüe y adaptador LLM con JSON estricto.
+  - Estados explícitos de datos insuficientes y respuestas inválidas.
+  - Persistencia de evidencia, versiones, cobertura y acuerdo entre analizadores.
 
-- [ ] **Fase 5: Backtesting Combinado (La Prueba de Fuego).**
-  - Simular operaciones históricas combinando las señales de XGBoost y el filtro de riesgo del LLM.
-  - Evaluar el desempeño final utilizando métricas profesionales (Sharpe Ratio, Retorno Total, Drawdown Máximo) frente a una estrategia simple de "Comprar y Mantener".
+- [x] **Fase 5: Motor de backtesting combinado.**
+  - Ejecución causal en el siguiente precio disponible y costos homogéneos.
+  - Comparación B0, B1 y M1 sobre ventanas OOS idénticas.
+  - Implementación M2 y M3 con abstención cuando falta sentimiento.
+  - Kelly fraccional limitado, ablación de calibración y sensibilidad a costos,
+    umbrales, ventanas y regímenes.
+  - M2/M3 permanecen `not_evaluable` hasta reunir cobertura real alineada; no se
+    rellenan fechas históricas con señales inexistentes.
+
+- [x] **Fase 6: Paper trading y estabilidad.**
+  - Inferencia diaria con la última vela completamente cerrada.
+  - Árbitro determinista con Kelly fraccional y límites de exposición.
+  - Decisiones y liquidaciones append-only enlazadas mediante SHA-256.
+  - Abstención por horario inválido, datos insuficientes, deriva, drawdown o
+    degradación de calibración.
+  - Capital simulado e informe acumulativo sin integración con brokers.

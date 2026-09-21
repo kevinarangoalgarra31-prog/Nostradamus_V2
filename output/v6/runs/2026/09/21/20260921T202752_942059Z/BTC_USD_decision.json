@@ -1,0 +1,24 @@
+{
+  "event": "decision",
+  "schema_version": "6.0.0",
+  "decision_id": "7b40e10faac19324319e4b395ac7f863d13eca9d964d341a0f7851a8b2926990",
+  "decision_key": "BTC-USD|2026-09-21",
+  "run_id": "20260921T202752_942059Z",
+  "asset": "BTC-USD",
+  "decision_day": "2026-09-21",
+  "decision_at": "2026-09-21T20:27:52.942059+00:00",
+  "supersedes_decision_id": null,
+  "action": "abstain",
+  "exposure": 0.0,
+  "reason": "RuntimeError: DataValidationError: Hay 1 filas con relaciones OHLC inválidas.",
+  "blockers": [
+    "RuntimeError: DataValidationError: Hay 1 filas con relaciones OHLC inválidas."
+  ],
+  "probability_raw": null,
+  "probability_calibrated": null,
+  "sentiment": null,
+  "entry_price": null,
+  "planned_exit_date": null,
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "record_hash": "5f910c450ec76a56f132acf5e1303b1e0b46a8341a79fdeab0f8d0732d5a3231"
+}

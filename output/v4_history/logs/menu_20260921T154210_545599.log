@@ -1,0 +1,21 @@
+{
+  "queue": "data\\labels\\phase4_labeling_queue.csv",
+  "evaluation": "output/v4_history/label_evaluation.json",
+  "queue_rows": 15,
+  "manually_labeled": 0,
+  "remaining": 15,
+  "analyzers": {
+    "lexicon_sentiment": {
+      "labeled_overlap": 0,
+      "coverage": 0.0,
+      "accuracy": null,
+      "macro_f1": null
+    },
+    "llm_sentiment": {
+      "labeled_overlap": 0,
+      "coverage": 0.0,
+      "accuracy": null,
+      "macro_f1": null
+    }
+  }
+}

@@ -1,0 +1,13 @@
+asset,title,source,url,language,published_at,captured_at,manual_label,manual_relevance,is_synthetic,label_notes
+BTC-USD,Bitcoin ETF receives regulatory approval and reports strong inflows,Nostradamus research fixture,urn:nostradamus:v4:btc:001,en,2026-01-02T08:00:00Z,2026-01-02T08:30:00Z,1,1,true,Positive fixture for pipeline validation
+BTC-USD,Bitcoin exchange suspends withdrawals after security breach,Nostradamus research fixture,urn:nostradamus:v4:btc:002,en,2026-01-03T09:00:00Z,2026-01-03T09:20:00Z,-1,1,true,Negative fixture for pipeline validation
+BTC-USD,Bitcoin network difficulty adjusts at scheduled interval,Nostradamus research fixture,urn:nostradamus:v4:btc:003,en,2026-01-04T10:00:00Z,2026-01-04T10:15:00Z,0,1,true,Neutral fixture for pipeline validation
+BTC-USD,Analysts report a bullish Bitcoin rally to a record high,Nostradamus research fixture,urn:nostradamus:v4:btc:004,en,2026-01-05T11:00:00Z,2026-01-05T11:10:00Z,1,1,true,Positive fixture for pipeline validation
+BTC-USD,Regulator rejects Bitcoin fund proposal amid fraud concerns,Nostradamus research fixture,urn:nostradamus:v4:btc:005,en,2026-01-06T12:00:00Z,2026-01-06T12:05:00Z,-1,1,true,Negative fixture for pipeline validation
+BTC-USD,Bitcoin developers publish routine network update,Nostradamus research fixture,urn:nostradamus:v4:btc:006,en,2026-01-07T13:00:00Z,2026-01-07T13:10:00Z,0,1,true,Neutral fixture for pipeline validation
+ETH-USD,Ethereum upgrade successful as adoption grows,Nostradamus research fixture,urn:nostradamus:v4:eth:001,en,2026-01-02T08:00:00Z,2026-01-02T08:30:00Z,1,1,true,Positive fixture for pipeline validation
+ETH-USD,Ethereum protocol reports no change to scheduled network parameters,Nostradamus research fixture,urn:nostradamus:v4:eth:002,en,2026-01-03T09:00:00Z,2026-01-03T09:20:00Z,0,1,true,Neutral fixture for pipeline validation
+ETH-USD,Ethereum bridge hacked and exchange outflows surge,Nostradamus research fixture,urn:nostradamus:v4:eth:003,en,2026-01-04T10:00:00Z,2026-01-04T10:15:00Z,-1,1,true,Negative fixture for pipeline validation
+ETH-USD,Fondo de Ethereum recibe aprobación y aumenta la adopción,Nostradamus research fixture,urn:nostradamus:v4:eth:004,es,2026-01-05T11:00:00Z,2026-01-05T11:10:00Z,1,1,true,Positive Spanish fixture
+ETH-USD,Demanda por fraude provoca una caída de Ethereum,Nostradamus research fixture,urn:nostradamus:v4:eth:005,es,2026-01-06T12:00:00Z,2026-01-06T12:05:00Z,-1,1,true,Negative Spanish fixture
+ETH-USD,La red Ethereum completa un ajuste programado,Nostradamus research fixture,urn:nostradamus:v4:eth:006,es,2026-01-07T13:00:00Z,2026-01-07T13:10:00Z,0,1,true,Neutral Spanish fixture

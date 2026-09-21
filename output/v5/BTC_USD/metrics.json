@@ -1,0 +1,61 @@
+{
+  "strategies": {
+    "B0_buy_and_hold": {
+      "observations": 900,
+      "total_return": 4.102749313880889,
+      "annualized_return": 0.9366624805216555,
+      "annualized_volatility": 0.48219595007516275,
+      "sharpe": 1.6104862104193771,
+      "sortino": 2.581632730901036,
+      "max_drawdown": -0.281436600408012,
+      "profit_factor": 1.2742530586004677,
+      "exposure": 1.0,
+      "entries": 1,
+      "transactions": 2,
+      "turnover": 2.0,
+      "total_cost": 0.003,
+      "win_rate_active": 0.5133333333333333
+    },
+    "B1_technical": {
+      "observations": 900,
+      "total_return": 0.9900175255617798,
+      "annualized_return": 0.3219136179449482,
+      "annualized_volatility": 0.34700825966812004,
+      "sharpe": 0.9762054798869878,
+      "sortino": 1.2205796284908215,
+      "max_drawdown": -0.35605821998091647,
+      "profit_factor": 1.2151473945475832,
+      "exposure": 0.5544444444444444,
+      "entries": 51,
+      "transactions": 102,
+      "turnover": 102.0,
+      "total_cost": 0.153,
+      "win_rate_active": 0.49298597194388777
+    },
+    "M1_xgboost": {
+      "observations": 900,
+      "total_return": 0.538369384951422,
+      "annualized_return": 0.19086759325464953,
+      "annualized_volatility": 0.3645845187657678,
+      "sharpe": 0.659432056125648,
+      "sortino": 0.8298593334296884,
+      "max_drawdown": -0.2920379122160187,
+      "profit_factor": 1.141776608575729,
+      "exposure": 0.5433333333333333,
+      "entries": 105,
+      "transactions": 210,
+      "turnover": 210.0,
+      "total_cost": 0.315,
+      "win_rate_active": 0.5030674846625767
+    }
+  },
+  "hybrid_status": {
+    "status": "not_evaluable",
+    "valid_rows": 0,
+    "total_rows": 900,
+    "coverage": 0.0,
+    "minimum_coverage": 0.8,
+    "minimum_rows": 30,
+    "reason": "No existe suficiente historia de sentimiento real alineada con las predicciones OOS; M2 y M3 no se puntúan ni se comparan."
+  }
+}

@@ -1,0 +1,56 @@
+test_naive_datetime_uses_local_timezone_without_crashing (test_cli_menu.InteractiveMenuTests.test_naive_datetime_uses_local_timezone_without_crashing) ... ok
+test_paper_window_is_evaluated_in_colombia_time (test_cli_menu.InteractiveMenuTests.test_paper_window_is_evaluated_in_colombia_time) ... ok
+test_repository_config_is_valid_and_explicit (test_phase_1_2.ExperimentConfigTests.test_repository_config_is_valid_and_explicit) ... ok
+test_model_features_exclude_target_and_future_return (test_phase_1_2.FeatureEngineeringTests.test_model_features_exclude_target_and_future_return) ... ok
+test_target_has_no_synthetic_label_at_end (test_phase_1_2.FeatureEngineeringTests.test_target_has_no_synthetic_label_at_end) ... ok
+test_download_provider_creates_versioned_artifact_and_manifest (test_phase_1_2.MarketDataTests.test_download_provider_creates_versioned_artifact_and_manifest) ... ok
+test_normalizes_lowercase_columns_and_sorts_dates (test_phase_1_2.MarketDataTests.test_normalizes_lowercase_columns_and_sorts_dates) ... ok
+test_rejects_incoherent_ohlc (test_phase_1_2.MarketDataTests.test_rejects_incoherent_ohlc) ... ok
+test_binary_metrics_are_complete (test_phase_3.PhaseThreeTests.test_binary_metrics_are_complete) ... ok
+test_repository_modeling_config_is_valid (test_phase_3.PhaseThreeTests.test_repository_modeling_config_is_valid) ... ok
+test_sigmoid_calibrator_returns_valid_probabilities (test_phase_3.PhaseThreeTests.test_sigmoid_calibrator_returns_valid_probabilities) ... ok
+test_walk_forward_is_ordered_non_overlapping_and_persistable (test_phase_3.PhaseThreeTests.test_walk_forward_is_ordered_non_overlapping_and_persistable) ... ok
+test_groq_client_caps_the_expected_output (test_phase_4.AnalyzerTests.test_groq_client_caps_the_expected_output) ... ok
+test_invalid_llm_response_is_not_forced_to_neutral (test_phase_4.AnalyzerTests.test_invalid_llm_response_is_not_forced_to_neutral) ... ok
+test_irrelevant_headline_is_not_forced_to_neutral (test_phase_4.AnalyzerTests.test_irrelevant_headline_is_not_forced_to_neutral) ... ok
+test_lexicon_is_structured_and_auditable (test_phase_4.AnalyzerTests.test_lexicon_is_structured_and_auditable) ... ok
+test_valid_llm_response_requires_literal_evidence (test_phase_4.AnalyzerTests.test_valid_llm_response_requires_literal_evidence) ... ok
+test_audit_rejects_lookahead_age_language_and_duplicates (test_phase_4.NewsAuditTests.test_audit_rejects_lookahead_age_language_and_duplicates) ... ok
+test_no_coverage_is_explicit (test_phase_4.NewsAuditTests.test_no_coverage_is_explicit) ... ok
+test_csv_provider_preserves_metadata_and_reports_invalid_rows (test_phase_4.NewsDomainAndProviderTests.test_csv_provider_preserves_metadata_and_reports_invalid_rows) ... ok
+test_dates_are_timezone_aware_and_ids_are_deterministic (test_phase_4.NewsDomainAndProviderTests.test_dates_are_timezone_aware_and_ids_are_deterministic) ... ok
+test_rss_provider_uses_same_normalized_contract (test_phase_4.NewsDomainAndProviderTests.test_rss_provider_uses_same_normalized_contract) ... ok
+test_repository_sentiment_config_is_explicit (test_phase_4.SentimentConfigTests.test_repository_sentiment_config_is_explicit) ... ok
+test_aggregate_has_explicit_insufficient_state (test_phase_4.SignalAndArtifactTests.test_aggregate_has_explicit_insufficient_state) ... ok
+test_artifact_manifest_links_content_hashes_and_model_version (test_phase_4.SignalAndArtifactTests.test_artifact_manifest_links_content_hashes_and_model_version) ... ok
+test_evaluation_reports_coverage_accuracy_and_analyzer_agreement (test_phase_4.SignalAndArtifactTests.test_evaluation_reports_coverage_accuracy_and_analyzer_agreement) ... ok
+test_labeling_queue_preserves_human_labels (test_phase_4.SignalAndArtifactTests.test_labeling_queue_preserves_human_labels) ... ok
+test_valid_aggregate_reports_cross_source_agreement (test_phase_4.SignalAndArtifactTests.test_valid_aggregate_reports_cross_source_agreement) ... ok
+test_repository_v5_config_is_valid (test_phase_5.BacktestingConfigTests.test_repository_v5_config_is_valid) ... ok
+test_cost_sensitivity_penalizes_turnover (test_phase_5.BacktestingEngineTests.test_cost_sensitivity_penalizes_turnover) ... ok
+test_execution_return_uses_next_two_opens (test_phase_5.BacktestingEngineTests.test_execution_return_uses_next_two_opens) ... ok
+test_hybrid_is_not_scored_without_real_coverage (test_phase_5.BacktestingEngineTests.test_hybrid_is_not_scored_without_real_coverage) ... ok
+test_hybrid_strategies_use_sentiment_and_capped_kelly (test_phase_5.BacktestingEngineTests.test_hybrid_strategies_use_sentiment_and_capped_kelly) ... ok
+test_sentiment_history_keeps_last_signal_per_day (test_phase_5.PhaseFiveArtifactTests.test_sentiment_history_keeps_last_signal_per_day) ... ok
+test_v5_manifest_hashes_generated_artifacts (test_phase_5.PhaseFiveArtifactTests.test_v5_manifest_hashes_generated_artifacts) ... ok
+test_inference_features_keep_latest_closed_row_without_target (test_phase_6.LiveFeatureTests.test_inference_features_keep_latest_closed_row_without_target) ... ok
+test_live_decision_uses_closed_candle_and_post_close_sentiment (test_phase_6.LiveFeatureTests.test_live_decision_uses_closed_candle_and_post_close_sentiment) ... ok
+test_repository_models_load_with_their_exact_training_dataset (test_phase_6.LiveFeatureTests.test_repository_models_load_with_their_exact_training_dataset) ... ok
+test_hash_chain_detects_tampering (test_phase_6.PaperTradingAuditTests.test_hash_chain_detects_tampering) ... ok
+test_latest_sentiment_never_reads_the_future (test_phase_6.PaperTradingAuditTests.test_latest_sentiment_never_reads_the_future) ... ok
+test_repository_config_is_safe_and_paper_only (test_phase_6.PaperTradingConfigTests.test_repository_config_is_safe_and_paper_only) ... ok
+test_arbiter_abstains_on_blocker_and_caps_kelly (test_phase_6.PaperTradingEngineTests.test_arbiter_abstains_on_blocker_and_caps_kelly) ... ok
+test_persisted_sigmoid_calibration_is_reproduced (test_phase_6.PaperTradingEngineTests.test_persisted_sigmoid_calibration_is_reproduced) ... ok
+test_point_drift_can_stop_a_decision (test_phase_6.PaperTradingEngineTests.test_point_drift_can_stop_a_decision) ... ok
+test_settlement_reconstructs_capital_and_brier (test_phase_6.PaperTradingEngineTests.test_settlement_reconstructs_capital_and_brier) ... ok
+
+----------------------------------------------------------------------
+Ran 45 tests in 2.424s
+
+OK
+Ingeniería de características lista: 119 filas útiles (descartadas 21 por ventanas o futuro no disponible).
+Ingeniería de características lista: 90 filas útiles (descartadas 50 por ventanas o futuro no disponible).
+Descargando datos históricos para TEST-USD desde 2024-01-01...
+Datos crudos versionados en: tmp\test_artifacts\TEST_USD_1d_raw_2024_01_01_2024_01_20_0864c3062b75.csv
+Ingeniería de características lista: 70 filas útiles (descartadas 20 por ventanas o futuro no disponible).
+Ingeniería de características lista: 2352 filas útiles (descartadas 49 por ventanas o futuro no disponible).

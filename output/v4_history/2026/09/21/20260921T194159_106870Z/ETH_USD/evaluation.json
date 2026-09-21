@@ -1,0 +1,37 @@
+{
+  "items": 5,
+  "manually_labeled": 0,
+  "analyzers": {
+    "lexicon_baseline": {
+      "total_items": 5,
+      "assessed": 5,
+      "valid": 5,
+      "coverage": 1.0,
+      "status_counts": {
+        "ok": 5
+      },
+      "manually_labeled_overlap": 0,
+      "accuracy": null,
+      "macro_f1": null
+    },
+    "structured_llm": {
+      "total_items": 5,
+      "assessed": 5,
+      "valid": 3,
+      "coverage": 0.6,
+      "status_counts": {
+        "error": 2,
+        "ok": 3
+      },
+      "manually_labeled_overlap": 0,
+      "accuracy": null,
+      "macro_f1": null
+    }
+  },
+  "analyzer_agreement": {
+    "lexicon_baseline__vs__structured_llm": {
+      "overlap": 3,
+      "agreement": 0.3333333333333333
+    }
+  }
+}

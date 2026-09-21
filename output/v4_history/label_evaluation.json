@@ -1,0 +1,19 @@
+{
+  "queue_rows": 15,
+  "manually_labeled": 0,
+  "remaining": 15,
+  "analyzers": {
+    "lexicon_sentiment": {
+      "labeled_overlap": 0,
+      "coverage": 0.0,
+      "accuracy": null,
+      "macro_f1": null
+    },
+    "llm_sentiment": {
+      "labeled_overlap": 0,
+      "coverage": 0.0,
+      "accuracy": null,
+      "macro_f1": null
+    }
+  }
+}
