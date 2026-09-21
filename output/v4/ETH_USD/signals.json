@@ -1,0 +1,26 @@
+[
+  {
+    "asset": "ETH-USD",
+    "decision_at": "2026-01-08T00:00:00+00:00",
+    "analyzer": "lexicon_baseline",
+    "model_version": "financial-bilingual-1.0",
+    "status": "ok",
+    "sentiment": 0,
+    "score": 0.08883939618906216,
+    "confidence": 0.65,
+    "relevant_headlines": 6,
+    "total_headlines": 6,
+    "unique_sources": 1,
+    "coverage_ratio": 1.0,
+    "source_agreement": null,
+    "evidence_news_ids": [
+      "134b1216f19bf0cd37e3567ac7fe8dd641072290c9242df049a8b6b9bbd0aa06",
+      "d5d2faecbefbed93c9f8e6c581ec1bb59a305d0473c53413630de38a2d799299",
+      "ad6e0d6bb676a5f8a8c11fe8c3c9c9234fa81c3bfe171c7d9b494dcc260a70b3",
+      "ec11a127200981e12a64927b7a9cfe9692e4a9f6a763b16c4c9b5f4a6e215640",
+      "e33040a910d096627024498c98e96bc76bbb05091aac7dcb407fe07f1a261025",
+      "b1ac35697387e85c2960086adba40d798dbc2b8627d3529b5ee1c36789a36f41"
+    ],
+    "reason": null
+  }
+]

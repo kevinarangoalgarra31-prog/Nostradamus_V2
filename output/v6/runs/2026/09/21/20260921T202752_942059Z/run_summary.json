@@ -1,0 +1,43 @@
+{
+  "phase": 6,
+  "version": "6.0.0",
+  "run_id": "20260921T202752_942059Z",
+  "decision_at": "2026-09-21T20:27:52.942059+00:00",
+  "paper_only": true,
+  "broker_connected": false,
+  "records": [
+    {
+      "asset": "BTC-USD",
+      "status": "recorded",
+      "decision_id": "7b40e10faac19324319e4b395ac7f863d13eca9d964d341a0f7851a8b2926990",
+      "action": "abstain",
+      "exposure": 0.0,
+      "probability_calibrated": null,
+      "sentiment": null,
+      "reason": "RuntimeError: DataValidationError: Hay 1 filas con relaciones OHLC inválidas."
+    },
+    {
+      "asset": "ETH-USD",
+      "status": "recorded",
+      "decision_id": "3425709e710e7536c9899c2135d203ea88cb8b61e54df749313b929493b288f6",
+      "action": "abstain",
+      "exposure": 0.0,
+      "probability_calibrated": null,
+      "sentiment": null,
+      "reason": "RuntimeError: DataValidationError: Hay 1 filas con relaciones OHLC inválidas."
+    }
+  ],
+  "settlements_total": 0,
+  "portfolio": {
+    "initial_capital": 10000.0,
+    "current_capital": 10000.0,
+    "total_return": 0.0,
+    "max_drawdown": 0.0,
+    "settled_trades": 0,
+    "recent_brier": null
+  },
+  "journals": {
+    "decisions": "output\\v6\\decisions.jsonl",
+    "settlements": "output\\v6\\settlements.jsonl"
+  }
+}

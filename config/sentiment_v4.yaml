@@ -1,0 +1,33 @@
+sentiment:
+  version: "4.0.0"
+  # Una noticia debe haber sido publicada y capturada antes de la decisión.
+  lookback_hours: 168
+  min_headlines: 3
+  min_relevance: 0.25
+  negative_threshold: -0.15
+  positive_threshold: 0.15
+  allowed_languages: [en, es]
+
+provider:
+  # El CSV etiquetado permite una demostración offline reproducible.
+  # Para adquisición en vivo se puede usar --provider google_news.
+  type: csv
+  csv_path: data/reference/headlines_v4_labeled_seed.csv
+  max_items_per_asset: 5
+  query_terms:
+    BTC-USD: Bitcoin
+    ETH-USD: Ethereum
+
+lexicon:
+  version: financial-bilingual-1.0
+
+llm:
+  provider: groq
+  # Se recomienda fijarlo mediante GROQ_MODEL para que el manifiesto registre
+  # explícitamente el modelo elegido en cada ejecución.
+  model: null
+  prompt_version: sentiment-json-v1
+  request_timeout_seconds: 60
+  # El contrato devuelve un JSON corto. Este límite evita solicitar por defecto
+  # más tokens de salida que los permitidos por minuto en cuentas gratuitas.
+  max_completion_tokens: 256

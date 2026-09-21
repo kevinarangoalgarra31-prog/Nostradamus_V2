@@ -58,6 +58,7 @@ def calcular_caracteristicas(
     ticker: str = "dataset",
     source: str = "derived",
     intervalo: str = "1d",
+    include_target: bool = True,
 ) -> pd.DataFrame:
     """
     Calcula características técnicas causales y una etiqueta futura sin lookahead.
@@ -105,19 +106,21 @@ def calcular_caracteristicas(
         data["Volume"] / volume_average.replace(0.0, np.nan)
     )
 
-    future_close = close.shift(-target.horizon_days)
-    data["Target_Return"] = future_close / close - 1.0
-    labels = pd.Series(pd.NA, index=data.index, dtype="Int8")
-    available = data["Target_Return"].notna()
-    labels.loc[available] = (
-        data.loc[available, "Target_Return"] > target.min_return
-    ).astype("int8")
-    data["Target"] = labels
+    if include_target:
+        future_close = close.shift(-target.horizon_days)
+        data["Target_Return"] = future_close / close - 1.0
+        labels = pd.Series(pd.NA, index=data.index, dtype="Int8")
+        available = data["Target_Return"].notna()
+        labels.loc[available] = (
+            data.loc[available, "Target_Return"] > target.min_return
+        ).astype("int8")
+        data["Target"] = labels
 
     data = data.replace([np.inf, -np.inf], np.nan)
     rows_before = len(data)
     data = data.dropna().copy()
-    data["Target"] = data["Target"].astype("int8")
+    if include_target:
+        data["Target"] = data["Target"].astype("int8")
     discarded = rows_before - len(data)
     print(
         f"Ingeniería de características lista: {len(data)} filas útiles "

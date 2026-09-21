@@ -1,0 +1,170 @@
+{
+  "version": "5.0.0",
+  "tickers": {
+    "BTC-USD": {
+      "metrics": {
+        "B0_buy_and_hold": {
+          "observations": 900,
+          "total_return": 4.102749313880889,
+          "annualized_return": 0.9366624805216555,
+          "annualized_volatility": 0.48219595007516275,
+          "sharpe": 1.6104862104193771,
+          "sortino": 2.581632730901036,
+          "max_drawdown": -0.281436600408012,
+          "profit_factor": 1.2742530586004677,
+          "exposure": 1.0,
+          "entries": 1,
+          "transactions": 2,
+          "turnover": 2.0,
+          "total_cost": 0.003,
+          "win_rate_active": 0.5133333333333333
+        },
+        "B1_technical": {
+          "observations": 900,
+          "total_return": 0.9900175255617798,
+          "annualized_return": 0.3219136179449482,
+          "annualized_volatility": 0.34700825966812004,
+          "sharpe": 0.9762054798869878,
+          "sortino": 1.2205796284908215,
+          "max_drawdown": -0.35605821998091647,
+          "profit_factor": 1.2151473945475832,
+          "exposure": 0.5544444444444444,
+          "entries": 51,
+          "transactions": 102,
+          "turnover": 102.0,
+          "total_cost": 0.153,
+          "win_rate_active": 0.49298597194388777
+        },
+        "M1_xgboost": {
+          "observations": 900,
+          "total_return": 0.538369384951422,
+          "annualized_return": 0.19086759325464953,
+          "annualized_volatility": 0.3645845187657678,
+          "sharpe": 0.659432056125648,
+          "sortino": 0.8298593334296884,
+          "max_drawdown": -0.2920379122160187,
+          "profit_factor": 1.141776608575729,
+          "exposure": 0.5433333333333333,
+          "entries": 105,
+          "transactions": 210,
+          "turnover": 210.0,
+          "total_cost": 0.315,
+          "win_rate_active": 0.5030674846625767
+        }
+      },
+      "hybrid_status": {
+        "status": "not_evaluable",
+        "valid_rows": 0,
+        "total_rows": 900,
+        "coverage": 0.0,
+        "minimum_coverage": 0.8,
+        "minimum_rows": 30,
+        "reason": "No existe suficiente historia de sentimiento real alineada con las predicciones OOS; M2 y M3 no se puntúan ni se comparan."
+      },
+      "inputs": {
+        "market_path": "data\\processed\\BTC_USD_1d_processed_2020_02_19_2026_09_15_158c3cb94a1d.csv",
+        "market_sha256": "158c3cb94a1d4cc7638cb3516c659f0aff7853b460582e5bd82092a05a8cdf3c",
+        "predictions_path": "output\\v3\\BTC_USD\\predictions_oos.csv",
+        "predictions_sha256": "1c04a1fef14092a71c09bd23513e7a9a4ded6f9f0dcaa41eb0c1068af312ceaa",
+        "model_manifest_path": "output\\v3\\BTC_USD\\model_manifest.json",
+        "model_version": "3.0.0",
+        "sentiment_root": "output\\v4_history",
+        "sentiment_rows": 0,
+        "sentiment_analyzer": "structured_llm"
+      },
+      "artifacts": {
+        "timeseries": "output\\v5\\BTC_USD\\backtest_timeseries.csv",
+        "metrics": "output\\v5\\BTC_USD\\metrics.json",
+        "cost_sensitivity": "output\\v5\\BTC_USD\\cost_sensitivity.csv",
+        "threshold_sensitivity": "output\\v5\\BTC_USD\\threshold_sensitivity.csv",
+        "window_metrics": "output\\v5\\BTC_USD\\window_metrics.csv",
+        "regime_metrics": "output\\v5\\BTC_USD\\regime_metrics.csv",
+        "figure": "output\\v5\\BTC_USD\\equity_curves.png",
+        "manifest": "output\\v5\\BTC_USD\\backtest_manifest.json"
+      }
+    },
+    "ETH-USD": {
+      "metrics": {
+        "B0_buy_and_hold": {
+          "observations": 900,
+          "total_return": 1.2457495435967334,
+          "annualized_return": 0.38834223423977887,
+          "annualized_volatility": 0.6274183873469878,
+          "sharpe": 0.8325003868378608,
+          "sortino": 1.281253481013461,
+          "max_drawdown": -0.6378870076562851,
+          "profit_factor": 1.13627373681151,
+          "exposure": 1.0,
+          "entries": 1,
+          "transactions": 2,
+          "turnover": 2.0,
+          "total_cost": 0.003,
+          "win_rate_active": 0.51
+        },
+        "B1_technical": {
+          "observations": 900,
+          "total_return": 0.9797252671127126,
+          "annualized_return": 0.3191366162537894,
+          "annualized_volatility": 0.4214653232898069,
+          "sharpe": 0.8617370592913053,
+          "sortino": 1.0580267634393892,
+          "max_drawdown": -0.31924398599639825,
+          "profit_factor": 1.2155436632879293,
+          "exposure": 0.4411111111111111,
+          "entries": 40,
+          "transactions": 80,
+          "turnover": 80.0,
+          "total_cost": 0.12000000000000001,
+          "win_rate_active": 0.5163727959697733
+        },
+        "M1_xgboost": {
+          "observations": 900,
+          "total_return": 1.0835453813219829,
+          "annualized_return": 0.3467665254731247,
+          "annualized_volatility": 0.5635998083253169,
+          "sharpe": 0.8051330811717643,
+          "sortino": 1.1097846503514768,
+          "max_drawdown": -0.6062726612973725,
+          "profit_factor": 1.1567426197716038,
+          "exposure": 0.7077777777777777,
+          "entries": 86,
+          "transactions": 172,
+          "turnover": 172.0,
+          "total_cost": 0.258,
+          "win_rate_active": 0.5180533751962323
+        }
+      },
+      "hybrid_status": {
+        "status": "not_evaluable",
+        "valid_rows": 0,
+        "total_rows": 900,
+        "coverage": 0.0,
+        "minimum_coverage": 0.8,
+        "minimum_rows": 30,
+        "reason": "No existe suficiente historia de sentimiento real alineada con las predicciones OOS; M2 y M3 no se puntúan ni se comparan."
+      },
+      "inputs": {
+        "market_path": "data\\processed\\ETH_USD_1d_processed_2020_02_19_2026_09_15_118862468e38.csv",
+        "market_sha256": "118862468e383fe19306f38852845c88990fc6976061292596c6e36d8a693986",
+        "predictions_path": "output\\v3\\ETH_USD\\predictions_oos.csv",
+        "predictions_sha256": "83eb38677a4019c085a345831e50407b7aee1382bfe9453b2fd0eb12a8a5541c",
+        "model_manifest_path": "output\\v3\\ETH_USD\\model_manifest.json",
+        "model_version": "3.0.0",
+        "sentiment_root": "output\\v4_history",
+        "sentiment_rows": 0,
+        "sentiment_analyzer": "structured_llm"
+      },
+      "artifacts": {
+        "timeseries": "output\\v5\\ETH_USD\\backtest_timeseries.csv",
+        "metrics": "output\\v5\\ETH_USD\\metrics.json",
+        "cost_sensitivity": "output\\v5\\ETH_USD\\cost_sensitivity.csv",
+        "threshold_sensitivity": "output\\v5\\ETH_USD\\threshold_sensitivity.csv",
+        "window_metrics": "output\\v5\\ETH_USD\\window_metrics.csv",
+        "regime_metrics": "output\\v5\\ETH_USD\\regime_metrics.csv",
+        "figure": "output\\v5\\ETH_USD\\equity_curves.png",
+        "manifest": "output\\v5\\ETH_USD\\backtest_manifest.json"
+      }
+    }
+  },
+  "report": "output\\v5\\DEMO_V5.md"
+}

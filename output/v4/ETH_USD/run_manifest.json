@@ -1,0 +1,54 @@
+{
+  "schema_version": "4.0.0",
+  "created_at_utc": "2026-09-21T17:41:50.255633+00:00",
+  "asset": "ETH-USD",
+  "decision_at": "2026-01-08T00:00:00+00:00",
+  "provider": "csv",
+  "models": [
+    "lexicon_baseline:financial_bilingual_lexicon:financial-bilingual-1.0"
+  ],
+  "audit_metrics": {
+    "decision_at": "2026-01-08T00:00:00+00:00",
+    "lookback_start": "2026-01-01T00:00:00+00:00",
+    "received": 6,
+    "accepted": 6,
+    "rejected": 0,
+    "rejection_reasons": {},
+    "unique_sources": 1,
+    "languages": {
+      "en": 3,
+      "es": 3
+    },
+    "coverage_status": "covered"
+  },
+  "config": {
+    "version": "4.0.0",
+    "lookback_hours": 168,
+    "min_headlines": 3,
+    "min_relevance": 0.25,
+    "positive_threshold": 0.15,
+    "negative_threshold": -0.15,
+    "allowed_languages": [
+      "en",
+      "es"
+    ],
+    "provider": "csv",
+    "csv_path": "data/reference/headlines_v4_labeled_seed.csv",
+    "max_items_per_asset": 100,
+    "query_terms": {
+      "BTC-USD": "Bitcoin",
+      "ETH-USD": "Ethereum"
+    },
+    "lexicon_version": "financial-bilingual-1.0",
+    "llm_provider": "groq",
+    "llm_model": null,
+    "prompt_version": "sentiment-json-v1"
+  },
+  "artifact_sha256": {
+    "headlines.csv": "068a6a41eb9ba647325907ca5e0db85eb419f1a6aa61b79817ddc8d3c241b176",
+    "rejected.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "assessments.csv": "addf181041f7103087a13d739e6459e20f9c1dfeda76e59dff384d08929b92e0",
+    "signals.json": "c48e40d18600b51bfdbd4e0e1b728b93a947c63f270c0d2d6ec57c62d460340a",
+    "evaluation.json": "b7bc0b89895901b1cc6f2f9a8b9c48577b020a53e1f79ca905d84e771ea64405"
+  }
+}

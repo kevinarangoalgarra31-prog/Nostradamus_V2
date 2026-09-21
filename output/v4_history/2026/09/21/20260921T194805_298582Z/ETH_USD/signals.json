@@ -1,0 +1,48 @@
+[
+  {
+    "asset": "ETH-USD",
+    "decision_at": "2026-09-21T19:48:08.374764+00:00",
+    "analyzer": "lexicon_baseline",
+    "model_version": "financial-bilingual-1.0",
+    "status": "ok",
+    "sentiment": 0,
+    "score": 0.0,
+    "confidence": 0.35,
+    "relevant_headlines": 5,
+    "total_headlines": 5,
+    "unique_sources": 5,
+    "coverage_ratio": 1.0,
+    "source_agreement": 1.0,
+    "evidence_news_ids": [
+      "e09999244e513d50fd1f87f9b8b999a4b312b677feb5c853242a693b621e1d51",
+      "136881c1484814663c2b5015518d5ae44d9eb446e417b09f898ce1ed215c24f5",
+      "d495b81e5c4493c4f094ea643cf19eb4cee600bf4f62374edc4b68aa52ee14e3",
+      "5119f91f4c37d68aa17300e98d262e632fe967ccc716a8758573c5f287413729",
+      "73b074df5afb5283579a5dc3987c3d0be1b484ddae28648b47002fc43f1571a7"
+    ],
+    "reason": null
+  },
+  {
+    "asset": "ETH-USD",
+    "decision_at": "2026-09-21T19:48:08.374764+00:00",
+    "analyzer": "structured_llm",
+    "model_version": "qwen/qwen3.8-27b|sentiment-json-v1",
+    "status": "ok",
+    "sentiment": -1,
+    "score": -0.1615044247787611,
+    "confidence": 0.9400000000000001,
+    "relevant_headlines": 5,
+    "total_headlines": 5,
+    "unique_sources": 5,
+    "coverage_ratio": 1.0,
+    "source_agreement": 0.4,
+    "evidence_news_ids": [
+      "e09999244e513d50fd1f87f9b8b999a4b312b677feb5c853242a693b621e1d51",
+      "136881c1484814663c2b5015518d5ae44d9eb446e417b09f898ce1ed215c24f5",
+      "d495b81e5c4493c4f094ea643cf19eb4cee600bf4f62374edc4b68aa52ee14e3",
+      "5119f91f4c37d68aa17300e98d262e632fe967ccc716a8758573c5f287413729",
+      "73b074df5afb5283579a5dc3987c3d0be1b484ddae28648b47002fc43f1571a7"
+    ],
+    "reason": null
+  }
+]

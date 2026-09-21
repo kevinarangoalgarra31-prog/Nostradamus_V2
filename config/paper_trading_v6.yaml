@@ -1,0 +1,24 @@
+paper_trading:
+  version: "6.0.0"
+  initial_capital: 10000.0
+  probability_threshold: 0.50
+  sentiment_analyzer: structured_llm
+
+timing:
+  # La vela diaria cripto cierra a las 00:00 UTC. Una decisión demasiado tardía
+  # ya no representa el horizonte para el que se entrenó el modelo.
+  max_decision_delay_minutes: 90
+  max_sentiment_age_hours: 6
+
+risk:
+  fractional_kelly: 0.25
+  max_asset_exposure: 0.25
+  max_total_exposure: 0.50
+
+monitoring:
+  drift_warning_zscore: 4.0
+  drift_stop_zscore: 8.0
+  max_drawdown: 0.20
+  calibration_window: 30
+  minimum_calibration_rows: 20
+  max_recent_brier: 0.35

@@ -1,0 +1,61 @@
+{
+  "schema_version": "5.0.0",
+  "created_at_utc": "2026-09-21T19:28:15.639800+00:00",
+  "ticker": "ETH-USD",
+  "execution_convention": "Señal al cierre t; entrada en apertura t+1; salida o rebalanceo en apertura t+2.",
+  "commission_bps_one_way": 10.0,
+  "slippage_bps_one_way": 5.0,
+  "config": {
+    "version": "5.0.0",
+    "annualization_periods": 365,
+    "probability_threshold": 0.5,
+    "technical_sma_column": "SMA_20",
+    "technical_rsi_column": "RSI_14",
+    "technical_rsi_threshold": 50.0,
+    "fractional_kelly": 0.25,
+    "max_exposure": 0.25,
+    "sentiment_analyzer": "structured_llm",
+    "minimum_sentiment_coverage": 0.8,
+    "minimum_hybrid_rows": 30,
+    "cost_multipliers": [
+      0.0,
+      1.0,
+      2.0
+    ],
+    "threshold_grid": [
+      0.45,
+      0.5,
+      0.55
+    ],
+    "regime_volatility_column": "Volatilidad_20"
+  },
+  "inputs": {
+    "market_path": "data\\processed\\ETH_USD_1d_processed_2020_02_19_2026_09_15_118862468e38.csv",
+    "market_sha256": "118862468e383fe19306f38852845c88990fc6976061292596c6e36d8a693986",
+    "predictions_path": "output\\v3\\ETH_USD\\predictions_oos.csv",
+    "predictions_sha256": "83eb38677a4019c085a345831e50407b7aee1382bfe9453b2fd0eb12a8a5541c",
+    "model_manifest_path": "output\\v3\\ETH_USD\\model_manifest.json",
+    "model_version": "3.0.0",
+    "sentiment_root": "output\\v4_history",
+    "sentiment_rows": 0,
+    "sentiment_analyzer": "structured_llm"
+  },
+  "hybrid_status": {
+    "status": "not_evaluable",
+    "valid_rows": 0,
+    "total_rows": 900,
+    "coverage": 0.0,
+    "minimum_coverage": 0.8,
+    "minimum_rows": 30,
+    "reason": "No existe suficiente historia de sentimiento real alineada con las predicciones OOS; M2 y M3 no se puntúan ni se comparan."
+  },
+  "artifact_sha256": {
+    "backtest_timeseries.csv": "99647ec375e5d7da6201e882a6ffbe7a879d901703b8604c6e4f8f64a0e6b2d9",
+    "metrics.json": "5f90591612abd95ff7ef9cb89a11b2dda352612c994e87149cc78f23313913f6",
+    "cost_sensitivity.csv": "984114daed59dc204fd6f32381002824149a8b2418843c0215d83d6887bd26b3",
+    "threshold_sensitivity.csv": "356a1389dfaa3498576c72d5cc55fa476e067c2a9076725b58137250767a036a",
+    "window_metrics.csv": "ff403cb7a7a83fabbffb229a4d4ebff211792d12b8d0576cb45f113c50d44ab6",
+    "regime_metrics.csv": "3f04505f7542b76156889460a06fc68e23208f8d5dcdd16aef80e45ada66c2e6",
+    "equity_curves.png": "6a3f20124d3e922f1180ad7a4053973ed26dcb1e9c23df87eec914552b2762dd"
+  }
+}
