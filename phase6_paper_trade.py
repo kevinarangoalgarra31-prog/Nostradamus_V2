@@ -11,13 +11,17 @@ from pathlib import Path
 from typing import Any, Mapping
 
 import pandas as pd
-import yfinance as yf
 
 from src.config import (
     load_experiment_config,
     load_paper_trading_config,
 )
-from src.data_pipeline import calcular_caracteristicas, normalizar_ohlcv, validar_ohlcv
+from src.data_pipeline import (
+    calcular_caracteristicas,
+    comparar_con_coingecko,
+    obtener_datos_mercado,
+    validar_ohlcv,
+)
 from src.paper_trading import (
     append_hash_record,
     assess_feature_drift,
@@ -75,24 +79,47 @@ def _identifier(*parts: object) -> str:
     return hashlib.sha256(material).hexdigest()
 
 
-def _download_market(ticker: str, experiment: Any, decision_at: datetime) -> pd.DataFrame:
+def _download_market(
+    ticker: str,
+    experiment: Any,
+    config: Any,
+    decision_at: datetime,
+) -> pd.DataFrame:
     end = (decision_at.date() + timedelta(days=1)).isoformat()
-    cache_dir = PROJECT_CACHE_DIR
-    cache_dir.mkdir(parents=True, exist_ok=True)
-    yf.set_tz_cache_location(str(cache_dir.resolve()))
-    raw = yf.download(
-        tickers=ticker,
-        start=experiment.data.start_date.isoformat(),
-        end=end,
-        interval=experiment.data.interval,
+    market = obtener_datos_mercado(
+        ticker,
+        fecha_inicio=experiment.data.start_date.isoformat(),
+        fecha_fin=end,
+        fuente=config.market_source,
+        intervalo=experiment.data.interval,
         auto_adjust=experiment.data.auto_adjust,
-        progress=False,
-        threads=False,
     )
-    return normalizar_ohlcv(raw, ticker=ticker)
-
-
-PROJECT_CACHE_DIR = Path("data/cache/yfinance")
+    if config.market_reference_source == "coingecko":
+        reference_end = decision_at.date()
+        reference_start = max(
+            experiment.data.start_date,
+            reference_end - timedelta(days=config.market_reference_lookback_days),
+        )
+        try:
+            report = comparar_con_coingecko(
+                market,
+                ticker=ticker,
+                fecha_inicio=reference_start.isoformat(),
+                fecha_fin=reference_end.isoformat(),
+                difference_threshold=config.market_reference_difference_threshold,
+            ).to_dict()
+        except Exception as exc:
+            report = {
+                "source": "coingecko",
+                "status": "unavailable",
+                "threshold": config.market_reference_difference_threshold,
+                "checked_start": reference_start.isoformat(),
+                "checked_end_exclusive": reference_end.isoformat(),
+                "error_type": type(exc).__name__,
+                "error": str(exc),
+            }
+        market.attrs["reference_report"] = report
+    return market
 
 
 def _market_csv_mapping(values: list[str]) -> dict[str, Path]:
@@ -108,17 +135,24 @@ def _market_csv_mapping(values: list[str]) -> dict[str, Path]:
 def _load_market_csv(path: Path) -> pd.DataFrame:
     if not path.is_file():
         raise FileNotFoundError(f"No existe el CSV de mercado: {path}")
-    return pd.read_csv(path, index_col=0, parse_dates=[0])
+    frame = pd.read_csv(path, index_col=0, parse_dates=[0])
+    frame.attrs["source"] = "local_csv"
+    frame.attrs["requested_source"] = "local_csv"
+    frame.attrs["source_path"] = str(path.resolve())
+    return frame
 
 
 def _normalize_index(frame: pd.DataFrame) -> pd.DataFrame:
+    attributes = dict(frame.attrs)
     result = frame.copy()
     index = pd.to_datetime(result.index)
     if index.tz is not None:
         index = index.tz_convert("UTC").tz_localize(None)
     result.index = index.normalize()
     result.index.name = "Date"
-    return result.sort_index()
+    result = result.sort_index()
+    result.attrs.update(attributes)
+    return result
 
 
 def _validate_live_market(
@@ -144,6 +178,21 @@ def _validate_live_market(
         values = pd.to_numeric(live[column], errors="coerce")
         if values.isna().any() or (values <= 0.0).any():
             raise ValueError(f"La cotización viva contiene {column} inválido.")
+
+
+def _market_reference_blockers(frame: pd.DataFrame, config: Any) -> list[str]:
+    """Convierte el diagnóstico secundario en reglas explícitas, sin mezclar datos."""
+    reference_report = frame.attrs.get("reference_report")
+    if not isinstance(reference_report, Mapping):
+        return []
+    status = str(reference_report.get("status"))
+    if status == "warning":
+        return ["CoinGecko detectó una divergencia de mercado superior al umbral."]
+    if config.require_market_reference and status != "ok":
+        return [
+            "La referencia CoinGecko requerida no está disponible o no tiene solape."
+        ]
+    return []
 
 
 def _existing_daily_decision(
@@ -214,6 +263,7 @@ def _failed_decision(
     run_id: str,
     reason: str,
     supersedes: str | None,
+    market_source: str,
 ) -> dict[str, Any]:
     day = decision_at.date().isoformat()
     return {
@@ -233,6 +283,13 @@ def _failed_decision(
         "probability_raw": None,
         "probability_calibrated": None,
         "sentiment": None,
+        "market_data": {
+            "source": None,
+            "requested_source": market_source,
+            "source_payload_sha256": None,
+            "source_urls": None,
+            "reference_validation": None,
+        },
         "entry_price": None,
         "planned_exit_date": None,
     }
@@ -290,6 +347,8 @@ def _build_decision(
         decision_at=decision_at,
     )
     blockers: list[str] = []
+    reference_report = market.attrs.get("reference_report")
+    blockers.extend(_market_reference_blockers(market, config))
     if delay_minutes < 0.0:
         blockers.append("La vela seleccionada todavía no estaba cerrada.")
     elif delay_minutes > config.max_decision_delay_minutes:
@@ -363,6 +422,15 @@ def _build_decision(
             "sma_20": float(feature_row["SMA_20"]),
             "rsi_14": float(feature_row["RSI_14"]),
         },
+        "market_data": {
+            "source": market.attrs.get("source", config.market_source),
+            "requested_source": market.attrs.get(
+                "requested_source", config.market_source
+            ),
+            "source_payload_sha256": market.attrs.get("source_payload_sha256"),
+            "source_urls": market.attrs.get("source_urls"),
+            "reference_validation": reference_report,
+        },
         "model": {
             "project_version": bundle.manifest.get("project_version"),
             "training_start": bundle.manifest.get("training_start"),
@@ -392,7 +460,8 @@ def _build_decision(
         "blockers": blockers,
         "entry_price": entry_price if outcome.action == "operate" else None,
         "entry_price_reference": (
-            "yfinance_daily_incomplete_close_captured_at_decision"
+            f"{market.attrs.get('source', config.market_source)}_daily_"
+            "incomplete_close_captured_at_decision"
             if outcome.action == "operate"
             else None
         ),
@@ -514,7 +583,7 @@ def main() -> int:
             markets[ticker] = _normalize_index(
                 _load_market_csv(market_csv[ticker])
                 if ticker in market_csv
-                else _download_market(ticker, experiment, decision_at)
+                else _download_market(ticker, experiment, config, decision_at)
             )
             _validate_live_market(
                 markets[ticker], experiment=experiment, decision_at=decision_at
@@ -578,6 +647,7 @@ def main() -> int:
                 run_id=run_id,
                 reason=f"{type(exc).__name__}: {exc}",
                 supersedes=supersedes,
+                market_source=config.market_source,
             )
         stored = append_hash_record(decisions_path, record)
         decisions.append(stored)

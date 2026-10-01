@@ -28,6 +28,11 @@ class PaperTradingConfig:
     calibration_window: int
     minimum_calibration_rows: int
     max_recent_brier: float
+    market_source: str = "binance"
+    market_reference_source: str | None = "coingecko"
+    market_reference_difference_threshold: float = 0.02
+    market_reference_lookback_days: int = 7
+    require_market_reference: bool = False
 
     def __post_init__(self) -> None:
         if self.version != "6.0.0":
@@ -58,6 +63,20 @@ class PaperTradingConfig:
             raise ValueError("minimum_calibration_rows no puede superar calibration_window.")
         if not 0.0 < self.max_recent_brier <= 1.0:
             raise ValueError("max_recent_brier debe estar entre 0 y 1.")
+        if self.market_source not in {"yfinance", "binance"}:
+            raise ValueError("market.source debe ser 'yfinance' o 'binance'.")
+        if self.market_reference_source not in {None, "coingecko"}:
+            raise ValueError("market.reference_source debe ser 'coingecko' o null.")
+        if not 0.0 < self.market_reference_difference_threshold <= 0.25:
+            raise ValueError(
+                "market.reference_difference_threshold debe estar entre 0 y 0.25."
+            )
+        if not 1 <= self.market_reference_lookback_days <= 30:
+            raise ValueError("market.reference_lookback_days debe estar entre 1 y 30.")
+        if self.require_market_reference and self.market_reference_source is None:
+            raise ValueError(
+                "market.require_reference exige configurar market.reference_source."
+            )
 
     @classmethod
     def from_mapping(cls, payload: Mapping[str, Any]) -> "PaperTradingConfig":
@@ -65,6 +84,8 @@ class PaperTradingConfig:
         timing = payload.get("timing", {})
         risk = payload.get("risk", {})
         monitoring = payload.get("monitoring", {})
+        market = payload.get("market", {})
+        reference_source = market.get("reference_source", "coingecko")
         return cls(
             version=str(paper.get("version", "6.0.0")),
             initial_capital=float(paper.get("initial_capital", 10_000.0)),
@@ -85,6 +106,19 @@ class PaperTradingConfig:
                 monitoring.get("minimum_calibration_rows", 20)
             ),
             max_recent_brier=float(monitoring.get("max_recent_brier", 0.35)),
+            market_source=str(market.get("source", "binance")).strip().lower(),
+            market_reference_source=(
+                str(reference_source).strip().lower()
+                if reference_source is not None
+                else None
+            ),
+            market_reference_difference_threshold=float(
+                market.get("reference_difference_threshold", 0.02)
+            ),
+            market_reference_lookback_days=int(
+                market.get("reference_lookback_days", 7)
+            ),
+            require_market_reference=bool(market.get("require_reference", False)),
         )
 
     def to_dict(self) -> dict[str, Any]:

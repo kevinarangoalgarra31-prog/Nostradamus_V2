@@ -4,19 +4,23 @@ import hashlib
 import json
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 import numpy as np
 import pandas as pd
 
-from src.config import FeatureConfig, TargetConfig, load_experiment_config
+from src.config import DataConfig, FeatureConfig, TargetConfig, load_experiment_config
 from src.data_pipeline import (
     DataValidationError,
     calcular_caracteristicas,
+    comparar_con_coingecko,
     descargar_datos,
     feature_columns,
     normalizar_ohlcv,
+    obtener_datos_mercado,
     validar_ohlcv,
 )
+from src.research_mcp.common import FetchResult
 
 
 def synthetic_ohlcv(rows: int = 140) -> pd.DataFrame:
@@ -46,8 +50,88 @@ class ExperimentConfigTests(unittest.TestCase):
         self.assertIn("BTC-USD", config.data.tickers)
         self.assertGreaterEqual(config.validation.min_rows, 252)
 
+    def test_market_source_contract_accepts_only_declared_providers(self) -> None:
+        base = {
+            "tickers": ("BTC-USD",),
+            "start_date": pd.Timestamp("2024-01-01").date(),
+        }
+        self.assertEqual(DataConfig(source="binance", **base).source, "binance")
+        with self.assertRaisesRegex(ValueError, "yfinance.*binance"):
+            DataConfig(source="fallback", **base)
+
 
 class MarketDataTests(unittest.TestCase):
+    def test_binance_provider_is_normalized_and_keeps_provenance(self) -> None:
+        envelope = {
+            "source": "binance_spot",
+            "source_urls": ["https://api.binance.com/api/v3/klines?fixture=1"],
+            "payload_sha256": "abc123",
+            "query": {"symbol": "BTCUSDT"},
+            "records": [
+                {
+                    "date": "2026-01-01",
+                    "open_time": "2026-01-01T00:00:00+00:00",
+                    "close_time": "2026-01-01T23:59:59.999000+00:00",
+                    "open": 100.0,
+                    "high": 103.0,
+                    "low": 99.0,
+                    "close": 102.0,
+                    "volume": 25.0,
+                }
+            ],
+        }
+        with patch(
+            "src.data_pipeline.market_data.get_binance_ohlcv",
+            return_value=envelope,
+        ) as fetch:
+            result = obtener_datos_mercado(
+                "BTC-USD",
+                fecha_inicio="2026-01-01",
+                fecha_fin="2026-01-02",
+                fuente="binance",
+            )
+        fetch.assert_called_once_with("BTC-USD", "2026-01-01", "2026-01-02")
+        self.assertEqual(list(result.columns), ["Open", "High", "Low", "Close", "Volume"])
+        self.assertEqual(result.attrs["source"], "binance")
+        self.assertEqual(result.attrs["source_payload_sha256"], "abc123")
+
+    def test_coingecko_reference_never_modifies_primary_series(self) -> None:
+        frame = synthetic_ohlcv(2)
+        original = frame.copy(deep=True)
+        timestamps = [
+            int(pd.Timestamp(day, tz="UTC").timestamp() * 1_000)
+            for day in ("2024-01-01", "2024-01-02")
+        ]
+
+        class ReferenceClient:
+            def get_json(self, *_args: object, **_kwargs: object) -> FetchResult:
+                payload = {
+                    "prices": [
+                        [timestamps[0], float(frame["Close"].iloc[0])],
+                        [timestamps[1], float(frame["Close"].iloc[1]) * 0.90],
+                    ],
+                    "market_caps": [],
+                    "total_volumes": [],
+                }
+                return FetchResult(
+                    payload=payload,
+                    raw_content=b"fixture",
+                    source_url="https://api.coingecko.com/fixture",
+                )
+
+        report = comparar_con_coingecko(
+            frame,
+            ticker="BTC-USD",
+            fecha_inicio="2024-01-01",
+            fecha_fin="2024-01-03",
+            difference_threshold=0.02,
+            client=ReferenceClient(),
+        )
+        pd.testing.assert_frame_equal(frame, original)
+        self.assertEqual(report.status, "warning")
+        self.assertEqual(report.overlap_days, 2)
+        self.assertEqual(report.warning_days, 1)
+
     def test_normalizes_lowercase_columns_and_sorts_dates(self) -> None:
         frame = synthetic_ohlcv(5).rename(columns=str.lower).sort_index(ascending=False)
         normalized = normalizar_ohlcv(frame)

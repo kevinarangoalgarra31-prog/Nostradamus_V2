@@ -1,6 +1,6 @@
 param(
     [string]$TaskName = "Nostradamus Phase 4 Daily",
-    [string]$DailyAt = "18:55"
+    [string]$DailyAt = "19:05"
 )
 
 $ErrorActionPreference = "Stop"

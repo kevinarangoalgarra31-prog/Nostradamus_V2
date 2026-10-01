@@ -1,0 +1,56 @@
+{
+  "schema_version": "4.0.0",
+  "created_at_utc": "2026-10-01T16:16:13.471966+00:00",
+  "asset": "ETH-USD",
+  "decision_at": "2026-10-01T16:16:06.995537+00:00",
+  "provider": "google_news",
+  "models": [
+    "lexicon_baseline:financial_bilingual_lexicon:financial-bilingual-1.0",
+    "structured_llm:qwen/qwen3.8-27b:qwen/qwen3.8-27b|sentiment-json-v1"
+  ],
+  "audit_metrics": {
+    "decision_at": "2026-10-01T16:16:06.995537+00:00",
+    "lookback_start": "2026-09-24T16:16:06.995537+00:00",
+    "received": 5,
+    "accepted": 5,
+    "rejected": 0,
+    "rejection_reasons": {},
+    "unique_sources": 5,
+    "languages": {
+      "en": 5
+    },
+    "coverage_status": "covered"
+  },
+  "config": {
+    "version": "4.0.0",
+    "lookback_hours": 168,
+    "min_headlines": 3,
+    "min_relevance": 0.25,
+    "positive_threshold": 0.15,
+    "negative_threshold": -0.15,
+    "allowed_languages": [
+      "en",
+      "es"
+    ],
+    "provider": "csv",
+    "csv_path": "data/reference/headlines_v4_labeled_seed.csv",
+    "max_items_per_asset": 5,
+    "query_terms": {
+      "BTC-USD": "Bitcoin",
+      "ETH-USD": "Ethereum"
+    },
+    "lexicon_version": "financial-bilingual-1.0",
+    "llm_provider": "groq",
+    "llm_model": null,
+    "prompt_version": "sentiment-json-v1",
+    "request_timeout_seconds": 60.0,
+    "max_completion_tokens": 256
+  },
+  "artifact_sha256": {
+    "headlines.csv": "5abfc7f497c526adca303afb0bb0849ce10ab65b4a05c4f8e52d5cc379b1a5d1",
+    "rejected.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "assessments.csv": "9a4ed3277e5ed5eae8182d0045f91febe5fb70ed62c74fa574a0cca347280db0",
+    "signals.json": "9a655cc12de4d8b0863234f5d1aacc9596c4f67dfd49f9f049fffd2617971010",
+    "evaluation.json": "3aa5959a709f2c704345e681e4d0dfa8c91a4033a3552554c46916bc416f6970"
+  }
+}

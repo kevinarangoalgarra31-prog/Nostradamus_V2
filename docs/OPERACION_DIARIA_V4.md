@@ -33,19 +33,22 @@ manifiestos y SHA-256. `collection_index.jsonl` permite enumerar las corridas.
 powershell -ExecutionPolicy Bypass -File scripts/install_phase4_task.ps1
 ```
 
-El horario predeterminado es 18:55 en la zona horaria local. Puede cambiarse:
+El horario predeterminado es 19:05 en la zona horaria local de Colombia
+(00:05 UTC). Así la señal se captura después del cierre diario que alimenta las
+características V6. Puede cambiarse si el equipo usa otra zona horaria:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts/install_phase4_task.ps1 `
-  -DailyAt "18:55"
+  -DailyAt "19:05"
 ```
 
 Instalar esta tarea autoriza llamadas diarias a Groq y el consumo asociado de su
 cuenta. Por esa razón el proyecto entrega el instalador, pero no registra la
 tarea silenciosamente.
 
-La ejecución cercana al cierre diario UTC facilita alinear la señal textual con
-la vela diaria sin usar noticias posteriores al instante de decisión.
+Una captura anterior a las 19:00 de Colombia pertenece al periodo previo al
+cierre y V6 la rechazará. Después de la captura programada, V6 debe ejecutarse
+antes de las 20:30; la ventana recomendada sigue siendo 19:05–20:15.
 
 ## Etiquetado humano
 

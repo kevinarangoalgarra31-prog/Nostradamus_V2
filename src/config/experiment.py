@@ -31,8 +31,8 @@ class DataConfig:
     auto_adjust: bool = False
 
     def __post_init__(self) -> None:
-        if self.source != "yfinance":
-            raise ValueError("La fase 2 solo admite 'yfinance' como fuente por ahora.")
+        if self.source not in {"yfinance", "binance"}:
+            raise ValueError("La fuente debe ser 'yfinance' o 'binance'.")
         if not self.tickers or any(not item.strip() for item in self.tickers):
             raise ValueError("Debe declararse al menos un ticker no vacío.")
         if self.interval != "1d":

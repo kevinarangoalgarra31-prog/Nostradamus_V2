@@ -7,7 +7,9 @@ Estas fases convierten la idea de investigación en un contrato ejecutable y pro
 ## Fase 1 — definición
 
 - Universo inicial: `BTC-USD` y `ETH-USD`.
-- Fuente: Yahoo Finance mediante `yfinance`.
+- Fuente canónica del experimento V3 existente: Yahoo Finance mediante `yfinance`.
+- Proveedores admitidos para nuevos experimentos: `yfinance` y Binance Spot. La
+  selección es explícita en `data.source`; no existe fallback ni mezcla de filas.
 - Frecuencia: diaria.
 - Periodo congelado: desde 2020-01-01 hasta 2026-09-16. En `yfinance`, el límite configurado como 2026-09-17 es exclusivo.
 - Variable objetivo: dirección del retorno del siguiente periodo, con umbral configurable.
@@ -27,6 +29,12 @@ El pipeline realiza los siguientes controles antes de aceptar un dataset:
 4. Coherencia entre máximo, mínimo, apertura y cierre.
 5. Umbral explícito de valores faltantes y mínimo de observaciones.
 6. Manifiesto JSON con fuente, periodo observado, esquema, controles y SHA-256.
+
+Binance expone `BTCUSDT` y `ETHUSDT`; el pipeline mantiene los alias de activos
+`BTC-USD` y `ETH-USD`, pero registra el símbolo consultado en el manifiesto. Es
+una fuente de exchange concreta y no equivale exactamente al índice de Yahoo.
+Cambiar `data.source` requiere una nueva versión experimental y reentrenar los
+modelos; no se reutilizan métricas como si ambas series fueran idénticas.
 
 Las variables técnicas utilizan únicamente la información disponible hasta cada instante: retornos rezagados, SMA, distancia a SMA, EMA, MACD, RSI, volatilidad, momentum, rango y volumen relativo. `Target_Return` y `Target` se reservan para supervisión y nunca se incluyen como entradas del modelo.
 

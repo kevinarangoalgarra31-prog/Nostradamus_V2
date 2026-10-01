@@ -1,0 +1,47 @@
+[
+  {
+    "asset": "BTC-USD",
+    "decision_at": "2026-10-01T16:16:06.995537+00:00",
+    "analyzer": "lexicon_baseline",
+    "model_version": "financial-bilingual-1.0",
+    "status": "ok",
+    "sentiment": 1,
+    "score": 0.25618631732168856,
+    "confidence": 0.39,
+    "relevant_headlines": 5,
+    "total_headlines": 5,
+    "unique_sources": 5,
+    "coverage_ratio": 1.0,
+    "source_agreement": 0.2,
+    "evidence_news_ids": [
+      "1e0a86d55a20a61baf80c8bfc692a39b5fe332ce85ce3d2bd9bed23cd70380eb",
+      "2159fc767bcc6b1f19e6effb032bf076f84b576c526ecb936b7c90a31ad9a345",
+      "29a7ba459f61d47580db677db2f8a0762c0055577e8d442601aa06a12796a32a",
+      "8b652770c9241664249c8ec96b3f4822c624afb0ba12a3ce7a6d27a5e8cfbe12",
+      "6fe80cec415dfa972d01513c47d783e98d90696c48b08836c7918a0a56ecbf9d"
+    ],
+    "reason": null
+  },
+  {
+    "asset": "BTC-USD",
+    "decision_at": "2026-10-01T16:16:06.995537+00:00",
+    "analyzer": "structured_llm",
+    "model_version": "qwen/qwen3.8-27b|sentiment-json-v1",
+    "status": "ok",
+    "sentiment": 1,
+    "score": 0.3466666666666667,
+    "confidence": 0.9375,
+    "relevant_headlines": 4,
+    "total_headlines": 5,
+    "unique_sources": 4,
+    "coverage_ratio": 0.8,
+    "source_agreement": 0.5,
+    "evidence_news_ids": [
+      "2159fc767bcc6b1f19e6effb032bf076f84b576c526ecb936b7c90a31ad9a345",
+      "29a7ba459f61d47580db677db2f8a0762c0055577e8d442601aa06a12796a32a",
+      "8b652770c9241664249c8ec96b3f4822c624afb0ba12a3ce7a6d27a5e8cfbe12",
+      "6fe80cec415dfa972d01513c47d783e98d90696c48b08836c7918a0a56ecbf9d"
+    ],
+    "reason": null
+  }
+]

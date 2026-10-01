@@ -8,7 +8,11 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from phase6_paper_trade import _build_decision, _validate_live_market
+from phase6_paper_trade import (
+    _build_decision,
+    _market_reference_blockers,
+    _validate_live_market,
+)
 from src.config import (
     PaperTradingConfig,
     load_experiment_config,
@@ -56,11 +60,25 @@ class PaperTradingConfigTests(unittest.TestCase):
     def test_repository_config_is_safe_and_paper_only(self) -> None:
         config = load_paper_trading_config("config/paper_trading_v6.yaml")
         self.assertEqual(config.version, "6.0.0")
+        self.assertEqual(config.market_source, "binance")
+        self.assertEqual(config.market_reference_source, "coingecko")
         self.assertLessEqual(config.max_asset_exposure, 0.25)
         self.assertLessEqual(config.max_total_exposure, 0.50)
 
 
 class LiveFeatureTests(unittest.TestCase):
+    def test_reference_divergence_blocks_without_replacing_market_data(self) -> None:
+        market = pd.DataFrame({"Close": [100.0]})
+        market.attrs["reference_report"] = {
+            "source": "coingecko",
+            "status": "warning",
+            "max_absolute_relative_difference": 0.03,
+        }
+        blockers = _market_reference_blockers(market, quick_config())
+        self.assertEqual(len(blockers), 1)
+        self.assertIn("divergencia", blockers[0])
+        self.assertEqual(float(market["Close"].iloc[0]), 100.0)
+
     def test_open_daily_candle_is_not_validated_as_a_closed_ohlc_bar(self) -> None:
         experiment = load_experiment_config("config/experiment.yaml")
         dates = pd.date_range("2025-12-01", periods=300, freq="D")

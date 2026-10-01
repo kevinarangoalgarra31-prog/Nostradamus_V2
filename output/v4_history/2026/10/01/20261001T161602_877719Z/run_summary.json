@@ -1,0 +1,223 @@
+{
+  "phase": 4,
+  "version": "4.0.0",
+  "run_id": "20261001T161602_877719Z",
+  "decision_at": "2026-10-01T16:16:06.995537+00:00",
+  "provider": "google_news",
+  "output_dir": "output\\v4_history\\2026\\10\\01\\20261001T161602_877719Z",
+  "assets": {
+    "BTC-USD": {
+      "audit": {
+        "decision_at": "2026-10-01T16:16:06.995537+00:00",
+        "lookback_start": "2026-09-24T16:16:06.995537+00:00",
+        "received": 5,
+        "accepted": 5,
+        "rejected": 0,
+        "rejection_reasons": {},
+        "unique_sources": 5,
+        "languages": {
+          "en": 5
+        },
+        "coverage_status": "covered"
+      },
+      "signals": [
+        {
+          "asset": "BTC-USD",
+          "decision_at": "2026-10-01T16:16:06.995537+00:00",
+          "analyzer": "lexicon_baseline",
+          "model_version": "financial-bilingual-1.0",
+          "status": "ok",
+          "sentiment": 1,
+          "score": 0.25618631732168856,
+          "confidence": 0.39,
+          "relevant_headlines": 5,
+          "total_headlines": 5,
+          "unique_sources": 5,
+          "coverage_ratio": 1.0,
+          "source_agreement": 0.2,
+          "evidence_news_ids": [
+            "1e0a86d55a20a61baf80c8bfc692a39b5fe332ce85ce3d2bd9bed23cd70380eb",
+            "2159fc767bcc6b1f19e6effb032bf076f84b576c526ecb936b7c90a31ad9a345",
+            "29a7ba459f61d47580db677db2f8a0762c0055577e8d442601aa06a12796a32a",
+            "8b652770c9241664249c8ec96b3f4822c624afb0ba12a3ce7a6d27a5e8cfbe12",
+            "6fe80cec415dfa972d01513c47d783e98d90696c48b08836c7918a0a56ecbf9d"
+          ],
+          "reason": null
+        },
+        {
+          "asset": "BTC-USD",
+          "decision_at": "2026-10-01T16:16:06.995537+00:00",
+          "analyzer": "structured_llm",
+          "model_version": "qwen/qwen3.8-27b|sentiment-json-v1",
+          "status": "ok",
+          "sentiment": 1,
+          "score": 0.3466666666666667,
+          "confidence": 0.9375,
+          "relevant_headlines": 4,
+          "total_headlines": 5,
+          "unique_sources": 4,
+          "coverage_ratio": 0.8,
+          "source_agreement": 0.5,
+          "evidence_news_ids": [
+            "2159fc767bcc6b1f19e6effb032bf076f84b576c526ecb936b7c90a31ad9a345",
+            "29a7ba459f61d47580db677db2f8a0762c0055577e8d442601aa06a12796a32a",
+            "8b652770c9241664249c8ec96b3f4822c624afb0ba12a3ce7a6d27a5e8cfbe12",
+            "6fe80cec415dfa972d01513c47d783e98d90696c48b08836c7918a0a56ecbf9d"
+          ],
+          "reason": null
+        }
+      ],
+      "evaluation": {
+        "items": 5,
+        "manually_labeled": 0,
+        "analyzers": {
+          "lexicon_baseline": {
+            "total_items": 5,
+            "assessed": 5,
+            "valid": 5,
+            "coverage": 1.0,
+            "status_counts": {
+              "ok": 5
+            },
+            "manually_labeled_overlap": 0,
+            "accuracy": null,
+            "macro_f1": null
+          },
+          "structured_llm": {
+            "total_items": 5,
+            "assessed": 5,
+            "valid": 5,
+            "coverage": 1.0,
+            "status_counts": {
+              "ok": 5
+            },
+            "manually_labeled_overlap": 0,
+            "accuracy": null,
+            "macro_f1": null
+          }
+        },
+        "analyzer_agreement": {
+          "lexicon_baseline__vs__structured_llm": {
+            "overlap": 5,
+            "agreement": 0.8
+          }
+        }
+      },
+      "artifacts": {
+        "headlines": "output\\v4_history\\2026\\10\\01\\20261001T161602_877719Z\\BTC_USD\\headlines.csv",
+        "rejected": "output\\v4_history\\2026\\10\\01\\20261001T161602_877719Z\\BTC_USD\\rejected.json",
+        "assessments": "output\\v4_history\\2026\\10\\01\\20261001T161602_877719Z\\BTC_USD\\assessments.csv",
+        "signals": "output\\v4_history\\2026\\10\\01\\20261001T161602_877719Z\\BTC_USD\\signals.json",
+        "evaluation": "output\\v4_history\\2026\\10\\01\\20261001T161602_877719Z\\BTC_USD\\evaluation.json",
+        "manifest": "output\\v4_history\\2026\\10\\01\\20261001T161602_877719Z\\BTC_USD\\run_manifest.json"
+      }
+    },
+    "ETH-USD": {
+      "audit": {
+        "decision_at": "2026-10-01T16:16:06.995537+00:00",
+        "lookback_start": "2026-09-24T16:16:06.995537+00:00",
+        "received": 5,
+        "accepted": 5,
+        "rejected": 0,
+        "rejection_reasons": {},
+        "unique_sources": 5,
+        "languages": {
+          "en": 5
+        },
+        "coverage_status": "covered"
+      },
+      "signals": [
+        {
+          "asset": "ETH-USD",
+          "decision_at": "2026-10-01T16:16:06.995537+00:00",
+          "analyzer": "lexicon_baseline",
+          "model_version": "financial-bilingual-1.0",
+          "status": "ok",
+          "sentiment": 0,
+          "score": 0.0,
+          "confidence": 0.35,
+          "relevant_headlines": 5,
+          "total_headlines": 5,
+          "unique_sources": 5,
+          "coverage_ratio": 1.0,
+          "source_agreement": 1.0,
+          "evidence_news_ids": [
+            "61eb559d73f82e6dbe61eb5757a963ac6c5cc2e76c6c7d6130cc8ea5e03ae728",
+            "994d516a569f61b399090044397528e10aee90a7bb9c4b4f1b52a898789b4ad8",
+            "c791411248acfc67f840be06cd1877c2db7fe2e5d8326b91aab8cd13edf180ed",
+            "7062d771a34a92c4116e9f07fdd9b090572992b4d3b0e02ee9b1684ea5aeab7c",
+            "2d398d67aa987044d16a8ae411b12272e1c44d1bd866fb95170c0ea716fb5ee8"
+          ],
+          "reason": null
+        },
+        {
+          "asset": "ETH-USD",
+          "decision_at": "2026-10-01T16:16:06.995537+00:00",
+          "analyzer": "structured_llm",
+          "model_version": "qwen/qwen3.8-27b|sentiment-json-v1",
+          "status": "ok",
+          "sentiment": 0,
+          "score": 0.10640394088669951,
+          "confidence": 0.8800000000000001,
+          "relevant_headlines": 5,
+          "total_headlines": 5,
+          "unique_sources": 5,
+          "coverage_ratio": 1.0,
+          "source_agreement": 0.6,
+          "evidence_news_ids": [
+            "61eb559d73f82e6dbe61eb5757a963ac6c5cc2e76c6c7d6130cc8ea5e03ae728",
+            "994d516a569f61b399090044397528e10aee90a7bb9c4b4f1b52a898789b4ad8",
+            "c791411248acfc67f840be06cd1877c2db7fe2e5d8326b91aab8cd13edf180ed",
+            "7062d771a34a92c4116e9f07fdd9b090572992b4d3b0e02ee9b1684ea5aeab7c",
+            "2d398d67aa987044d16a8ae411b12272e1c44d1bd866fb95170c0ea716fb5ee8"
+          ],
+          "reason": null
+        }
+      ],
+      "evaluation": {
+        "items": 5,
+        "manually_labeled": 0,
+        "analyzers": {
+          "lexicon_baseline": {
+            "total_items": 5,
+            "assessed": 5,
+            "valid": 5,
+            "coverage": 1.0,
+            "status_counts": {
+              "ok": 5
+            },
+            "manually_labeled_overlap": 0,
+            "accuracy": null,
+            "macro_f1": null
+          },
+          "structured_llm": {
+            "total_items": 5,
+            "assessed": 5,
+            "valid": 5,
+            "coverage": 1.0,
+            "status_counts": {
+              "ok": 5
+            },
+            "manually_labeled_overlap": 0,
+            "accuracy": null,
+            "macro_f1": null
+          }
+        },
+        "analyzer_agreement": {
+          "lexicon_baseline__vs__structured_llm": {
+            "overlap": 5,
+            "agreement": 0.6
+          }
+        }
+      },
+      "artifacts": {
+        "headlines": "output\\v4_history\\2026\\10\\01\\20261001T161602_877719Z\\ETH_USD\\headlines.csv",
+        "rejected": "output\\v4_history\\2026\\10\\01\\20261001T161602_877719Z\\ETH_USD\\rejected.json",
+        "assessments": "output\\v4_history\\2026\\10\\01\\20261001T161602_877719Z\\ETH_USD\\assessments.csv",
+        "signals": "output\\v4_history\\2026\\10\\01\\20261001T161602_877719Z\\ETH_USD\\signals.json",
+        "evaluation": "output\\v4_history\\2026\\10\\01\\20261001T161602_877719Z\\ETH_USD\\evaluation.json",
+        "manifest": "output\\v4_history\\2026\\10\\01\\20261001T161602_877719Z\\ETH_USD\\run_manifest.json"
+      }
+    }
+  }
+}

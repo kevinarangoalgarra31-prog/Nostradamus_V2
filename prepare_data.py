@@ -85,6 +85,7 @@ def main() -> int:
                 guardar_csv=not args.no_save,
                 intervalo=config.data.interval,
                 auto_adjust=config.data.auto_adjust,
+                fuente=config.data.source,
                 min_filas=config.validation.min_rows,
                 max_missing_ratio=config.validation.max_missing_ratio,
             )

@@ -20,7 +20,7 @@ La configuración canónica está en `config/experiment.yaml`. Allí se fijan un
 
 El pipeline:
 
-1. descarga o carga OHLCV;
+1. descarga OHLCV desde la fuente declarada (`yfinance` o `binance`) o carga un CSV;
 2. normaliza columnas y fechas;
 3. rechaza duplicados, precios incoherentes, volumen negativo o faltantes excesivos;
 4. guarda CSV versionado y manifiesto JSON con SHA-256;
@@ -65,6 +65,11 @@ python prepare_data.py --config config/experiment.yaml `
 ```
 
 Los datos aceptados se guardan en `data/raw` y `data/processed`. Cada CSV tiene un manifiesto adyacente con metadatos, controles de calidad y huella del contenido.
+
+`config/experiment.yaml` conserva `yfinance` como fuente del experimento histórico
+que produjo los modelos V3 actuales. Para un experimento nuevo puede declararse
+`data.source: binance`; el manifiesto registra la fuente y la huella de la respuesta.
+El pipeline no cambia de proveedor automáticamente si una descarga falla.
 
 ## Demostración V3
 
@@ -125,7 +130,8 @@ python phase4_sentiment.py `
   --output-dir output/v4_history
 ```
 
-Para instalar la tarea diaria de Windows a las 18:55, hora local:
+Para instalar la captura V4 diaria de Windows a las 19:05 de Colombia
+(00:05 UTC, después del cierre de la vela):
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts/install_phase4_task.ps1
@@ -177,6 +183,12 @@ enlaza la señal V4 más reciente y aplica el árbitro M3. No se conecta a un
 broker. Las decisiones y liquidaciones simuladas forman diarios append-only con
 hash encadenado.
 
+V6 usa Binance como única fuente operativa, según
+`config/paper_trading_v6.yaml`. CoinGecko contrasta los últimos siete cierres:
+no aporta filas ni sustituye valores. Una divergencia superior al umbral causa
+`abstain`; si la referencia no responde, el incidente queda registrado y solo
+bloquea cuando `market.require_reference` está activado.
+
 Ejecución manual completa, recomendada entre las 19:05 y 20:15 de Colombia:
 
 ```powershell
@@ -190,6 +202,28 @@ alternativa no interactiva.
 El sistema se abstiene ante ejecución tardía, señal ausente o vieja, deriva
 severa, drawdown excesivo o degradación del Brier reciente. Una decisión válida
 del mismo activo no se duplica durante el mismo día.
+
+## MCP de investigación
+
+`nostradamus_mcp.py` expone fuentes públicas de solo lectura para dar contexto a
+Codex sin conectarse a un broker ni modificar servicios externos. Incluye:
+
+- OHLCV diario de Binance y comparación con CoinGecko;
+- búsqueda de noticias en GDELT y, con `NEWSAPI_KEY`, NewsAPI;
+- metadatos académicos de Crossref;
+- inventario y diagnóstico de disponibilidad de fuentes.
+
+El MCP es una herramienta exploratoria. Sus respuestas no entran directamente al
+entrenamiento: cualquier dato científico debe congelarse, validarse y versionarse
+mediante el pipeline normal. Consulta `docs/MCP_RESEARCH.md` para instalación,
+contratos y límites.
+
+Diagnóstico de solo lectura de Binance y CoinGecko:
+
+```powershell
+python -m scripts.diagnose_market_sources --asset BTC-USD
+python -m scripts.diagnose_market_sources --asset ETH-USD
+```
 
 ## Pruebas
 
@@ -217,6 +251,8 @@ deriva, límites de riesgo y liquidación simulada.
 - `config/backtesting_v5.yaml`: contrato del backtesting.
 - `output/v5/DEMO_V5.md`: resultados comparativos fuera de muestra.
 - `docs/PROTOCOLO_FASE_6.md`: horario, controles, diarios y operación manual.
+- `docs/DIAGNOSTICO_MERCADO_V6.md`: incidente OHLC, contraste y corrección de fuentes.
+- `docs/MCP_RESEARCH.md`: configuración y contrato del MCP de solo lectura.
 - `config/paper_trading_v6.yaml`: límites temporales, riesgo y estabilidad.
 - `docs/HOJA_DE_RUTA_POST_V3.md`: trabajo planificado para las fases posteriores.
 - `output/docx` y `output/pdf`: propuesta y capítulos 1 a 3 reformulados.

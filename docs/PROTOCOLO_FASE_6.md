@@ -13,7 +13,7 @@ poco después de ese cierre. En Colombia corresponde a partir de las 19:00 del
 día anterior; la ventana configurada termina 90 minutos después del cierre.
 
 1. V4 captura titulares y fija una señal textual posterior al cierre.
-2. V6 usa exclusivamente la última vela diaria completa.
+2. V6 usa exclusivamente la última vela diaria completa de Binance Spot.
 3. El precio observado durante la consulta se conserva como entrada simulada.
 4. La posición se liquida en la apertura UTC del día siguiente.
 
@@ -75,9 +75,27 @@ Otros artefactos:
 - `output/v6/runs/...`: decisión y manifiesto inmutable de cada corrida;
 - `output/v6/logs`: salida de las ejecuciones manuales.
 
-El precio de entrada es una referencia capturada desde Yahoo Finance, no una
-ejecución de mercado. Comisión y slippage configurados se descuentan en la
-liquidación simulada.
+El precio de entrada es una referencia capturada desde la vela abierta de
+Binance Spot, no una ejecución de mercado. Comisión y slippage configurados se
+descuentan en la liquidación simulada.
+
+## Salud y contraste de mercado
+
+`market.source` selecciona una sola fuente operativa por corrida; no existe
+fallback. `market.reference_source: coingecko` consulta una referencia agregada
+para los cierres recientes y conserva el resultado dentro de la decisión. Esa
+comparación jamás rellena, promedia o sustituye OHLCV de Binance.
+
+- Diferencia superior a `reference_difference_threshold`: `abstain`.
+- CoinGecko no disponible: diagnóstico explícito; solo bloquea si
+  `require_reference: true`.
+- OHLC inválido en la fuente primaria: rechazo antes de inferencia.
+
+Diagnóstico manual, sin escribir datos ni diarios:
+
+```powershell
+python -m scripts.diagnose_market_sources --asset BTC-USD
+```
 
 ## Criterios de reentrenamiento
 

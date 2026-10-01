@@ -4,6 +4,16 @@ paper_trading:
   probability_threshold: 0.50
   sentiment_analyzer: structured_llm
 
+market:
+  # Fuente única para características, cotización simulada y liquidaciones.
+  source: binance
+  # CoinGecko contrasta cierres recientes, pero nunca rellena ni reemplaza velas.
+  reference_source: coingecko
+  reference_difference_threshold: 0.02
+  reference_lookback_days: 7
+  # Una caída de la referencia genera diagnóstico; Binance sigue siendo autoritativa.
+  require_reference: false
+
 timing:
   # La vela diaria cripto cierra a las 00:00 UTC. Una decisión demasiado tardía
   # ya no representa el horizonte para el que se entrenó el modelo.

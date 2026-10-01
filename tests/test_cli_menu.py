@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import unittest
 from datetime import datetime, timezone
+from pathlib import Path
 
 from nostradamus_cli import _bar, is_paper_window
 
@@ -23,6 +24,13 @@ class InteractiveMenuTests(unittest.TestCase):
     def test_naive_datetime_uses_local_timezone_without_crashing(self) -> None:
         result = is_paper_window(datetime(2026, 9, 21, 19, 5))
         self.assertIsInstance(result, bool)
+
+    def test_phase4_schedule_runs_after_daily_utc_close(self) -> None:
+        installer = Path("scripts/install_phase4_task.ps1").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn('[string]$DailyAt = "19:05"', installer)
+        self.assertNotIn('[string]$DailyAt = "18:55"', installer)
 
 
 if __name__ == "__main__":
